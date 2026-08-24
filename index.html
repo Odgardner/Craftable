@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Craftdle — Minecraft Recipe Wordle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Scanline overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <div id="app">
+
+    <!-- ── Header ─────────────────────────────────── -->
+    <header>
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-block green-block">C</span>
+          <span class="logo-block grey-block">R</span>
+          <span class="logo-block yellow-block">A</span>
+          <span class="logo-block green-block">F</span>
+          <span class="logo-block green-block">T</span>
+          <span class="logo-block grey-block">A</span>
+          <span class="logo-block yellow-block">B</span>
+          <span class="logo-block green-block">L</span>
+          <span class="logo-block grey-block">E</span>
+        </div>
+        <p class="tagline">Guess the Minecraft crafting recipe</p>
+      </div>
+      <button id="help-btn" class="icon-btn" title="How to play">?</button>
+    </header>
+
+    <!-- ── Help Modal ──────────────────────────────── -->
+    <div id="help-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-box">
+        <button class="modal-close" id="modal-close-btn">✕</button>
+        <h2>How to Play</h2>
+        <p>Guess today's Minecraft crafting recipe in <strong>10 attempts</strong>.</p>
+        <div class="help-legend">
+          <div class="legend-row">
+            <div class="legend-cell correct-cell">OAK</div>
+            <span>Correct item in the correct slot</span>
+          </div>
+          <div class="legend-row">
+            <div class="legend-cell present-cell">IRON</div>
+            <span>Item is in the recipe, but wrong slot</span>
+          </div>
+          <div class="legend-row">
+            <div class="legend-cell absent-cell">GOLD</div>
+            <span>This item is not in the recipe</span>
+          </div>
+        </div>
+        <hr />
+        <p>Click a <strong>slot</strong> to select it, then click an <strong>item</strong> from the palette to place it. Click a filled slot again to clear it.</p>
+        <p>The crafting grid represents a standard 3×3 Minecraft crafting table.</p>
+      </div>
+    </div>
+
+    <!-- ── Toast notification ─────────────────────── -->
+    <div id="toast" class="toast hidden" role="alert"></div>
+
+    <!-- ── Target item display ────────────────────── -->
+    <section class="target-section">
+      <div class="target-label">Today's recipe makes:</div>
+      <div class="target-item">
+        <div class="target-icon" id="target-icon"></div>
+        <div class="target-name" id="target-name">Loading…</div>
+      </div>
+      <div class="target-desc" id="target-desc"></div>
+    </section>
+
+    <!-- ── Attempt counter ────────────────────────── -->
+    <div class="attempt-counter">
+      Attempt <span id="attempt-num">1</span> / <span id="max-attempts">10</span>
+    </div>
+
+    <!-- ── Main game area ─────────────────────────── -->
+    <main class="game-area">
+
+      <!-- Previous guess history -->
+      <section class="history-section" id="history-section" aria-label="Guess history">
+        <!-- Rendered by JS -->
+      </section>
+
+      <!-- Current crafting grid -->
+      <section class="current-guess-section" id="current-guess-section">
+        <div class="grid-wrapper">
+          <div class="crafting-label">Crafting</div>
+          <div class="crafting-row">
+            <div class="crafting-grid" id="crafting-grid" role="grid">
+              <!-- 9 slots rendered by JS -->
+            </div>
+            <div class="arrow-icon" aria-hidden="true">
+              <svg viewBox="0 0 34 24" width="34" height="24">
+                <defs>
+                  <linearGradient id="arrowGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#e4e4e4"/>
+                    <stop offset="1" stop-color="#8f8f8f"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 8 H16 V2 L34 12 L16 22 V16 H0 Z" fill="url(#arrowGrad)" stroke="#4a4a4a" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="result-slot" id="result-slot">
+              <div class="result-icon">?</div>
+            </div>
+          </div>
+        </div>
+
+        <button id="submit-btn" class="submit-btn" disabled>
+          Craft &amp; Submit
+        </button>
+        <button id="clear-btn" class="clear-btn">Clear Grid</button>
+      </section>
+
+      <!-- Item palette -->
+      <section class="palette-section" id="palette-section">
+        <div class="palette-label">Inventory</div>
+        <p class="palette-hint">Click an item, then click a slot to place it</p>
+        <div class="item-palette" id="item-palette">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Game Over overlay ──────────────────────── -->
+    <div id="gameover-overlay" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-box gameover-box">
+        <button class="modal-close" id="gameover-close-btn" title="Review your guesses">✕</button>
+        <div id="gameover-icon" class="gameover-icon">🏆</div>
+        <h2 id="gameover-title">You Win!</h2>
+        <p id="gameover-msg"></p>
+        <div class="solution-label">The Recipe Was:</div>
+        <div class="solution-grid" id="solution-grid"></div>
+        <div class="solution-result-row">
+          <span class="arrow-icon-sm">→</span>
+          <div class="solution-result-icon" id="solution-result-icon"></div>
+          <div class="solution-result-name" id="solution-result-name"></div>
+        </div>
+        <p class="next-puzzle-msg">New puzzle every day 🌱</p>
+      </div>
+    </div>
+
+  </div><!-- /#app -->
+
+  <script src="script.js"></script>
+</body>
+</html>

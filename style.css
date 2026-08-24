@@ -1,0 +1,768 @@
+/* ───────────────────────────────────────────────────────────
+   CRAFTDLE — Minecraft Recipe Wordle
+   Theme: Authentic Minecraft inventory GUI — light stone panels,
+   notched pixel corners, sunken slots, over a blocky world backdrop.
+   Font: the real Minecraft typeface, self-hosted from assets/
+─────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Minecraft';
+  src: url('./assets/others/minecraft-font/MinecraftRegular-Bmg3.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('./assets/others/minecraft-font/MinecraftBold-nMK1.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('./assets/others/minecraft-font/MinecraftItalic-R8Mo.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('./assets/others/minecraft-font/MinecraftBoldItalic-1y1e.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Minecraft inventory-panel palette */
+  --panel:        #c6c6c6;
+  --panel-black:  #000000;
+  --panel-dark:   #555555;
+  --panel-light:  #ffffff;
+  --panel-shadow: #8b8b8b;
+
+  --slot:         #8b8b8b;
+  --slot-hover:   #9d9d9d;
+  --slot-sel-bg:  #d7c34a;
+
+  /* Feedback colours — grass green / honey gold / slate */
+  --green:        #6abe30;
+  --green-dark:   #386126;
+  --green-bg:     #5a9e34;
+  --yellow:       #e8b41a;
+  --yellow-dark:  #8a6300;
+  --yellow-bg:    #cf9d1f;
+  --grey:         #5a5a5a;
+  --grey-dark:    #2c2c2c;
+  --grey-bg:      #4a4a4a;
+
+  /* Text on light panels */
+  --text-dark:    #3f3f3f;
+  --text-mid:     #6b6b6b;
+  --text-header:  #7a5300;
+  --text-on-dark: #e8e8d8;
+
+  /* Slot sizes */
+  --slot-size:    62px;
+  --slot-gap:     4px;
+  --slot-border-w: 3px;
+
+  --notch:        6px;
+  --notch-sm:     4px;
+}
+
+/* ── Reset & base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  background: #2b3a1f;
+  color: var(--text-on-dark);
+  font-family: 'Minecraft', monospace;
+  font-size: 1.15rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3rem;
+}
+
+/* World screenshot behind the GUI — blurred + dimmed like the vanilla
+   inventory screen, so the light panels stay legible on top */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: -20px;
+  background: url('./assets/others/background.png') center/cover no-repeat;
+  filter: blur(3px) brightness(0.68) saturate(1.05);
+  z-index: -1;
+}
+
+/* ── App wrapper ───────────────────────────────────────── */
+#app {
+  width: 100%;
+  max-width: 700px;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* ── Reusable "Minecraft panel" look: light stone grey,
+   notched corners, raised bevel ─────────────────────────── */
+.mc-panel,
+.target-section,
+.grid-wrapper,
+.palette-section,
+.modal-box,
+.toast,
+.history-attempt {
+  background: var(--panel);
+  clip-path: polygon(
+    var(--notch) 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% calc(100% - var(--notch)),
+    calc(100% - var(--notch)) 100%, var(--notch) 100%, 0 calc(100% - var(--notch)), 0 var(--notch)
+  );
+  box-shadow:
+    inset 2px 2px 0 var(--panel-light),
+    inset -2px -2px 0 var(--panel-dark),
+    0 3px 0 rgba(0,0,0,.35);
+}
+
+/* ── Header ────────────────────────────────────────────── */
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0 0.4rem;
+}
+
+.header-inner { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.logo {
+  display: flex;
+  gap: 4px;
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.logo-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid rgba(0,0,0,.55);
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,.35), inset -2px -2px 0 rgba(0,0,0,.4);
+}
+
+.green-block  { background: #5a9e34; }
+.yellow-block { background: #cf9d1f; }
+.grey-block   { background: #5a5a5a; }
+
+.tagline {
+  font-family: 'Minecraft', monospace;
+  font-size: 1.15rem;
+  color: #eef4e0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.6);
+  letter-spacing: 1px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  background: var(--panel);
+  clip-path: polygon(
+    var(--notch-sm) 0, calc(100% - var(--notch-sm)) 0, 100% var(--notch-sm), 100% calc(100% - var(--notch-sm)),
+    calc(100% - var(--notch-sm)) 100%, var(--notch-sm) 100%, 0 calc(100% - var(--notch-sm)), 0 var(--notch-sm)
+  );
+  box-shadow: inset 2px 2px 0 var(--panel-light), inset -2px -2px 0 var(--panel-dark);
+  border: none;
+  color: var(--text-dark);
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter .1s;
+}
+.icon-btn:hover { filter: brightness(1.12); }
+.icon-btn:active { box-shadow: inset -2px -2px 0 var(--panel-light), inset 2px 2px 0 var(--panel-dark); }
+
+/* ── Toast ─────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-dark);
+  font-family: 'Minecraft', monospace;
+  font-size: 0.72rem;
+  padding: 0.7rem 1.3rem;
+  z-index: 1000;
+  text-align: center;
+  max-width: 90vw;
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+  animation: toast-in .2s ease;
+}
+.toast.hidden { display: none; }
+.toast.error-toast { background: #d99a9a; }
+.toast.success-toast { background: #a9d79a; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+}
+
+/* ── Target section ────────────────────────────────────── */
+.target-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.4rem;
+  width: 100%;
+}
+
+.target-label {
+  font-family: 'Minecraft', monospace;
+  font-weight: 600;
+  font-size: 0.68rem;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.target-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.target-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--slot);
+  box-shadow: inset 0 0 0 2px var(--panel-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.target-name {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-header);
+  line-height: 1.4;
+}
+
+.target-desc {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  font-style: italic;
+}
+
+/* ── Attempt counter ───────────────────────────────────── */
+.attempt-counter {
+  font-family: 'Minecraft', monospace;
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: #eef4ff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.6);
+  letter-spacing: 1px;
+}
+.attempt-counter span { color: #d7f0a0; }
+
+/* ── Game area ─────────────────────────────────────────── */
+.game-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* ── History section ───────────────────────────────────── */
+.history-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.history-attempt {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.history-label {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.6rem;
+  color: var(--text-dark);
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(3, var(--slot-size));
+  grid-template-rows: repeat(3, var(--slot-size));
+  gap: 2px;
+  background: var(--panel-light);
+  padding: 2px;
+  box-shadow: inset 0 0 0 2px var(--panel-dark);
+}
+
+/* ── Slot base — flat fill divided by white gridlines, like the
+   vanilla crafting-table screen (no heavy per-slot bevel) ──── */
+.slot {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  background: var(--slot);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background .1s;
+  user-select: none;
+  overflow: hidden;
+}
+
+.slot .item-abbr {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.42rem;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+  letter-spacing: 0.5px;
+  padding: 0 2px;
+  pointer-events: none;
+}
+
+.slot .item-index {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-family: 'Minecraft', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Interactive slot states */
+.slot.interactive:hover {
+  background: var(--slot-hover);
+}
+
+.slot.interactive.selected {
+  background: #dedede !important;
+  box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+/* Feedback states */
+.slot.correct {
+  background: var(--green-bg) !important;
+  box-shadow: inset 0 0 0 3px var(--green-dark);
+}
+
+.slot.present {
+  background: var(--yellow-bg) !important;
+  box-shadow: inset 0 0 0 3px var(--yellow-dark);
+}
+
+.slot.absent {
+  background: var(--grey-bg) !important;
+  box-shadow: inset 0 0 0 3px var(--grey-dark);
+  opacity: 0.75;
+}
+
+/* Slot flip animation for submitted rows */
+.slot.flip {
+  animation: flip-cell .4s ease forwards;
+}
+@keyframes flip-cell {
+  0%   { transform: scaleY(1); }
+  50%  { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+/* ── Item images ───────────────────────────────────────── */
+.item-img {
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  filter: drop-shadow(1px 1px 0 rgba(0,0,0,.35));
+}
+
+.palette-img {
+  width: 78%;
+  height: 78%;
+}
+
+/* ── Current crafting grid ─────────────────────────────── */
+.current-guess-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1.1rem 1.4rem;
+}
+
+.crafting-label,
+.palette-label {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+
+.crafting-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.crafting-grid {
+  display: grid;
+  grid-template-columns: repeat(3, var(--slot-size));
+  grid-template-rows: repeat(3, var(--slot-size));
+  gap: 2px;
+  background: var(--panel-light);
+  padding: 2px;
+  box-shadow: inset 0 0 0 2px var(--panel-dark);
+}
+
+.arrow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.arrow-icon-sm {
+  font-family: 'Minecraft', monospace;
+  font-size: 1.1rem;
+  color: var(--text-header);
+}
+
+.result-slot {
+  width: 64px;
+  height: 64px;
+  background: var(--panel-light);
+  padding: 2px;
+  box-shadow: inset 0 0 0 2px var(--panel-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.result-slot > * { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--slot); }
+
+.result-icon {
+  font-size: 1.6rem;
+  color: var(--text-mid);
+}
+
+/* ── Action buttons ────────────────────────────────────── */
+.submit-btn, .clear-btn {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border: none;
+  letter-spacing: 1px;
+  transition: filter .1s, transform .05s;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+  clip-path: polygon(
+    var(--notch-sm) 0, calc(100% - var(--notch-sm)) 0, 100% var(--notch-sm), 100% calc(100% - var(--notch-sm)),
+    calc(100% - var(--notch-sm)) 100%, var(--notch-sm) 100%, 0 calc(100% - var(--notch-sm)), 0 var(--notch-sm)
+  );
+}
+
+.submit-btn {
+  background: var(--green-bg);
+  color: #eafce0;
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,.35), inset -2px -2px 0 rgba(0,0,0,.4);
+}
+.submit-btn:not(:disabled):hover { filter: brightness(1.1); }
+.submit-btn:not(:disabled):active {
+  transform: translateY(1px);
+  box-shadow: inset -2px -2px 0 rgba(255,255,255,.35), inset 2px 2px 0 rgba(0,0,0,.4);
+}
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+
+.clear-btn {
+  background: #a24b3f;
+  color: #ffe3df;
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,.25), inset -2px -2px 0 rgba(0,0,0,.4);
+  font-size: 0.6rem;
+}
+.clear-btn:hover { filter: brightness(1.1); }
+.clear-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset -2px -2px 0 rgba(255,255,255,.25), inset 2px 2px 0 rgba(0,0,0,.4);
+}
+
+/* ── Item palette ("Inventory") ─────────────────────────── */
+.palette-section {
+  width: 100%;
+  padding: 0.9rem 1.4rem 1.1rem;
+}
+
+.palette-hint {
+  font-family: 'Minecraft', monospace;
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  margin: 0.15rem 0 0.7rem;
+}
+
+.item-palette {
+  display: grid;
+  grid-template-columns: repeat(9, var(--slot-size));
+  gap: 2px;
+  background: var(--panel-light);
+  padding: 2px;
+  box-shadow: inset 0 0 0 2px var(--panel-dark);
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.palette-item {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  background: var(--slot);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .1s, transform .08s;
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+}
+
+.palette-item:hover {
+  background: var(--slot-hover);
+}
+
+.palette-item:active { transform: scale(.95); }
+
+.palette-item.palette-selected {
+  background: #dedede;
+  box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+/* ── Modals ────────────────────────────────────────────── */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 1rem;
+}
+
+.modal.hidden { display: none; }
+
+.modal-box {
+  padding: 1.6rem;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+}
+
+.modal-box h2 {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-header);
+  margin-bottom: 1rem;
+}
+
+.modal-box p {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.modal-box strong { color: #1c1c1c; }
+
+.modal-box hr {
+  border: none;
+  border-top: 2px solid var(--panel-shadow);
+  margin: 0.8rem 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.7rem;
+  background: transparent;
+  border: none;
+  color: var(--text-mid);
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-family: 'Minecraft', monospace;
+}
+.modal-close:hover { color: var(--text-dark); }
+
+/* Help modal legend */
+.help-legend { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.8rem 0; }
+.legend-row { display: flex; align-items: center; gap: 0.8rem; }
+.legend-cell {
+  width: 48px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.42rem;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 3px rgba(0,0,0,.35);
+}
+.correct-cell { background: var(--green-bg); color: #eafce0; }
+.present-cell { background: var(--yellow-bg); color: #3a2c00; }
+.absent-cell  { background: var(--grey-bg);   color: #ddd; }
+.legend-row span { font-size: 1rem; color: var(--text-dark); }
+
+/* ── Game Over modal ───────────────────────────────────── */
+.gameover-box { text-align: center; }
+
+.gameover-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+.gameover-box h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+.gameover-box #gameover-msg {
+  color: var(--text-mid);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.solution-label {
+  font-family: 'Minecraft', monospace;
+  font-weight: 600;
+  font-size: 0.55rem;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-template-rows: repeat(3, 50px);
+  gap: 3px;
+  margin: 0 auto 0.5rem;
+  width: fit-content;
+  background: var(--panel-dark);
+  padding: 3px;
+}
+
+.solution-cell {
+  width: 50px;
+  height: 50px;
+  background: var(--slot);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Minecraft', monospace;
+  font-size: 0.4rem;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+  box-shadow: inset 2px 2px 0 rgba(0,0,0,.4), inset -2px -2px 0 rgba(255,255,255,.15);
+  overflow: hidden;
+}
+
+.solution-result-icon {
+  width: 30px;
+  height: 30px;
+  background: var(--slot);
+  box-shadow: inset 0 0 0 2px var(--panel-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-size: 1.1rem;
+}
+
+.solution-result-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.65rem;
+  color: var(--text-header);
+  margin-bottom: 0.6rem;
+}
+
+.next-puzzle-msg {
+  font-family: 'Minecraft', monospace;
+  font-weight: 600;
+  font-size: 0.55rem;
+  color: #2b6b1f;
+  margin-top: 0.8rem;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+.palette-section { overflow-x: auto; }
+
+@media (max-width: 560px) {
+  :root {
+    --slot-size: 46px;
+  }
+
+  .logo { font-size: 1rem; }
+  .logo-block { width: 28px; height: 28px; }
+
+  .grid-wrapper { gap: 0.5rem; padding: 0.8rem; }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --slot-size: 38px;
+  }
+}
