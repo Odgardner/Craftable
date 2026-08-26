@@ -1,9 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
    CRAFTDLE — script.js
-   Handles: API calls, game state, rendering, interactions
+   Fully static: RECIPES/ITEMS come from recipes-data.js, all
+   game logic (daily puzzle, guess checking) runs client-side.
+   Handles: game state, rendering, interactions
 ═══════════════════════════════════════════════════════════ */
 
-const API_BASE = "http://localhost:5000/api";
 const MAX_ATTEMPTS = 10;
 
 // ── Item emoji / icon map (client-side display) ─────────────
@@ -137,6 +138,49 @@ function gridsEqual(a, b) {
   return a.every((v, i) => v === b[i]);
 }
 
+// ── Game logic (fully client-side — RECIPES/ITEMS from recipes-data.js) ──
+
+// The daily puzzle rolls over at the player's own local midnight, same
+// convention real Wordle uses — there's no server to define a shared
+// "today," and the full recipe list already ships to the client anyway.
+function getDailyRecipe() {
+  const now = new Date();
+  const dayIndex = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+  return RECIPES[dayIndex % RECIPES.length];
+}
+
+function checkGuess(recipeId, guess) {
+  const recipe = RECIPES.find((r) => r.id === recipeId);
+  const target = recipe.grid;
+  const normTarget = normalizeGrid(target);
+  const normGuess  = normalizeGrid(guess);
+  const isCorrect  = gridsEqual(normGuess, normTarget);
+
+  if (isCorrect) {
+    return { feedback: Array(9).fill("correct"), correct: true };
+  }
+
+  const feedback = Array(9).fill("absent");
+  const box = boundingBox(guess);
+  if (box) {
+    for (let i = 0; i < 9; i++) {
+      if (guess[i] === "air") continue;
+      const r = Math.floor(i / 3), c = i % 3;
+      const normIdx = (r - box.minR) * 3 + (c - box.minC);
+      if (normGuess[normIdx] === normTarget[normIdx]) {
+        feedback[i] = "correct";   // right item, right spot in the shape
+      } else if (normTarget.includes(normGuess[normIdx])) {
+        feedback[i] = "present";   // right item, wrong spot in the shape
+      }
+    }
+  }
+  return { feedback, correct: false };
+}
+
+function getSolutionGrid(recipeId) {
+  return RECIPES.find((r) => r.id === recipeId).grid;
+}
+
 // ── Game state ──────────────────────────────────────────────
 const state = {
   recipeId:      null,
@@ -167,60 +211,35 @@ function showToast(msg, type = "") {
   toastTimer = setTimeout(() => { el.className = "toast hidden"; }, 2800);
 }
 
-// ── API helpers ─────────────────────────────────────────────
-async function fetchJSON(url, opts = {}) {
-  const res = await fetch(url, {
-    headers: { "Content-Type": "application/json" },
-    ...opts,
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(err.error || res.statusText);
-  }
-  return res.json();
-}
-
 // ── Initialisation ──────────────────────────────────────────
-async function init() {
+function init() {
   $("max-attempts").textContent = MAX_ATTEMPTS;
 
-  try {
-    const [items, recipe, recipes] = await Promise.all([
-      fetchJSON(`${API_BASE}/items`),
-      fetchJSON(`${API_BASE}/recipe`),
-      fetchJSON(`${API_BASE}/recipes/all`),
-    ]);
+  state.items        = ITEMS;
+  const recipe        = getDailyRecipe();
+  state.recipeId     = recipe.id;
+  state.targetResult = recipe.result;
+  state.targetDesc   = recipe.result_desc;
+  allRecipes         = RECIPES;
+  allRecipes.forEach((r) => { r.normGrid = normalizeGrid(r.grid); });
 
-    state.items        = items;
-    state.recipeId     = recipe.id;
-    state.targetResult = recipe.result;
-    state.targetDesc   = recipe.result_desc;
-    allRecipes         = recipes;
-    allRecipes.forEach((r) => { r.normGrid = normalizeGrid(r.grid); });
+  renderTarget();
+  renderCraftingGrid();
+  renderPalette();
+  updateSubmitBtn();
 
-    renderTarget();
-    renderCraftingGrid();
-    renderPalette();
-    updateSubmitBtn();
+  $("help-btn").addEventListener("click", () => {
+    $("help-modal").classList.remove("hidden");
+  });
+  $("modal-close-btn").addEventListener("click", () => {
+    $("help-modal").classList.add("hidden");
+  });
+  $("help-modal").addEventListener("click", (e) => {
+    if (e.target === $("help-modal")) $("help-modal").classList.add("hidden");
+  });
 
-    $("help-btn").addEventListener("click", () => {
-      $("help-modal").classList.remove("hidden");
-    });
-    $("modal-close-btn").addEventListener("click", () => {
-      $("help-modal").classList.add("hidden");
-    });
-    $("help-modal").addEventListener("click", (e) => {
-      if (e.target === $("help-modal")) $("help-modal").classList.add("hidden");
-    });
-
-    $("clear-btn").addEventListener("click", clearGrid);
-    $("submit-btn").addEventListener("click", submitGuess);
-
-  } catch (err) {
-    console.error(err);
-    showToast("⚠ Could not connect to server.\nMake sure the backend is running on port 5000.", "error");
-    $("target-name").textContent = "Server offline";
-  }
+  $("clear-btn").addEventListener("click", clearGrid);
+  $("submit-btn").addEventListener("click", submitGuess);
 }
 
 // ── Render helpers ──────────────────────────────────────────
@@ -467,7 +486,7 @@ function clearGrid() {
 }
 
 // ── Submit & evaluate ───────────────────────────────────────
-async function submitGuess() {
+function submitGuess() {
   if (state.gameOver) return;
 
   if (!state.currentMatch) {
@@ -477,58 +496,37 @@ async function submitGuess() {
 
   $("submit-btn").disabled = true;
 
-  try {
-    const result = await fetchJSON(`${API_BASE}/guess`, {
-      method: "POST",
-      body: JSON.stringify({
-        recipe_id: state.recipeId,
-        guess:     state.currentGrid,
-      }),
-    });
+  const result = checkGuess(state.recipeId, state.currentGrid);
 
-    state.attempts.push({
-      guess:    [...state.currentGrid],
-      feedback: result.feedback,
-    });
+  state.attempts.push({
+    guess:    [...state.currentGrid],
+    feedback: result.feedback,
+  });
 
-    $("attempt-num").textContent = Math.min(state.attempts.length + 1, MAX_ATTEMPTS);
+  $("attempt-num").textContent = Math.min(state.attempts.length + 1, MAX_ATTEMPTS);
 
-    renderHistory();
+  renderHistory();
 
-    if (result.correct) {
-      state.gameOver = true;
-      state.won      = true;
-      setTimeout(() => showGameOver(true), 1200);
-    } else if (state.attempts.length >= MAX_ATTEMPTS) {
-      state.gameOver = true;
-      setTimeout(() => showGameOver(false), 1200);
-    } else {
-      clearGrid();
-      const remaining = MAX_ATTEMPTS - state.attempts.length;
-      showToast(`Not quite! ${remaining} attempt${remaining === 1 ? "" : "s"} remaining.`);
-      updateSubmitBtn();
-    }
-  } catch (err) {
-    console.error(err);
-    showToast("⚠ Error contacting server. Check console.", "error");
-    $("submit-btn").disabled = false;
+  if (result.correct) {
+    state.gameOver = true;
+    state.won      = true;
+    setTimeout(() => showGameOver(true), 1200);
+  } else if (state.attempts.length >= MAX_ATTEMPTS) {
+    state.gameOver = true;
+    setTimeout(() => showGameOver(false), 1200);
+  } else {
+    clearGrid();
+    const remaining = MAX_ATTEMPTS - state.attempts.length;
+    showToast(`Not quite! ${remaining} attempt${remaining === 1 ? "" : "s"} remaining.`);
+    updateSubmitBtn();
   }
 }
 
 // ── Game Over ───────────────────────────────────────────────
-async function showGameOver(won) {
+function showGameOver(won) {
   renderTarget(true);
 
-  let solutionGrid = null;
-  try {
-    const sol = await fetchJSON(`${API_BASE}/solution`, {
-      method: "POST",
-      body: JSON.stringify({ recipe_id: state.recipeId }),
-    });
-    solutionGrid = sol.grid;
-  } catch (e) {
-    console.warn("Could not fetch solution:", e);
-  }
+  const solutionGrid = getSolutionGrid(state.recipeId);
 
   $("gameover-icon").textContent  = won ? "🏆" : "💀";
   $("gameover-title").textContent = won ? "You Win!" : "Game Over";

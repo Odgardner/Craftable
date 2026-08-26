@@ -1,7 +1,11 @@
-# ⛏ Craftdle — Minecraft Recipe Wordle
+# ⛏ Craftable — Minecraft Recipe Wordle
 
-Guess the Minecraft crafting recipe in 10 attempts!  
+Guess the Minecraft crafting recipe in 10 attempts!
 Like Wordle, but for a 3×3 crafting table.
+
+A fully static site — no server, no database, no build step. Every recipe
+ships to the browser and all guess-checking runs client-side, so it can be
+hosted anywhere that serves static files, for free.
 
 ---
 
@@ -9,136 +13,100 @@ Like Wordle, but for a 3×3 crafting table.
 
 ```
 minecraft-wordle/
-├── app.py            ← Flask REST API server
-├── recipes.py         ← All recipe + item data
-├── index.html          ← Game UI
-├── style.css           ← Minecraft-themed styling
-├── script.js           ← Game logic & API calls
-├── assets/items/       ← Item icon images
-├── requirements.txt
+├── index.html                 ← Game UI
+├── style.css                  ← Minecraft-themed styling
+├── recipes-data.js            ← Generated item + recipe data (do not hand-edit)
+├── script.js                  ← Game logic, rendering, interactions
+├── recipes.py                 ← Maintained source of truth for recipes.js
+├── generate_recipes_data.py   ← Regenerates recipes-data.js from recipes.py
+├── assets/items/               ← Item icon images
 └── README.md
 ```
 
 ---
 
-## 🚀 Setup & Running
+## 🚀 Running it
 
-### 1. Install Python dependencies
+There's nothing to install or start. Any static file server works:
 
 ```bash
 cd minecraft-wordle
-pip install -r requirements.txt
+python -m http.server 8080
 ```
 
-### 2. Start the backend
-
-```bash
-python app.py
-```
-
-The server starts at **http://localhost:5000**
-
-### 3. Open the frontend
-
-Open `index.html` in your browser directly, **or** use the
-[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-VS Code extension for auto-reload on save.
-
-> ⚠️ The frontend must be able to reach `http://localhost:5000` — keep the
-> Python server running while playing.
+Then open http://localhost:8080. Or just double-click `index.html` — it
+works directly from disk too (`file://`), since there's no backend to reach.
 
 ---
 
 ## 🎮 How to Play
 
 1. The **target item** is shown at the top — figure out its crafting recipe.
-2. Click a **slot** in the 3×3 grid to select it (highlighted in gold).
-3. Click an **item** from the palette to place it in the selected slot.
-4. Fill all 9 slots, then hit **⚒ Craft & Submit**.
+2. Click a **slot** in the 3×3 grid to select it.
+3. Click an **item** from the inventory to place it in the selected slot.
+4. Once your arrangement matches a real recipe, hit **Craft & Submit**.
 5. Colour feedback appears on each slot:
 
 | Colour | Meaning |
 |--------|---------|
-| 🟩 **Green** | Correct item in the correct slot |
-| 🟨 **Yellow** | Item IS in the recipe, but in the wrong slot |
+| 🟩 **Green** | Correct item in the correct spot in the shape |
+| 🟨 **Yellow** | Item IS in the recipe, but in the wrong spot |
 | ⬛ **Grey** | Item is not used in this recipe |
 
-6. You have **10 attempts**. A new recipe unlocks every day!
+Matching is translation-invariant, same as real Minecraft: a shape like the
+Crafting Table's 2×2 block counts as correct in any of its 4 valid corners
+of the grid, not just one fixed position.
 
----
-
-## 🧩 Available Items
-
-| ID | Name |
-|----|------|
-| `oak_planks` | Oak Planks |
-| `cobble` | Cobblestone |
-| `iron` | Iron Ingot |
-| `gold` | Gold Ingot |
-| `diamond` | Diamond |
-| `stick` | Stick |
-| `coal` | Coal |
-| `string` | String |
-| `flint` | Flint |
-| `wheat` | Wheat |
-| `feather` | Feather |
-| `leather` | Leather |
-| `redstone` | Redstone |
-| `wool` | Wool |
-| `sand` | Sand |
+6. You have **10 attempts**. A new recipe unlocks every day (at your local
+   midnight, same as Wordle).
 
 ---
 
 ## ➕ Adding New Recipes
 
-Edit `recipes.py`. Each recipe looks like:
+Recipes and items are maintained in `recipes.py` (comments, categories,
+readable dict literals), **not** in `recipes-data.js` directly — that file
+is generated and gets overwritten.
 
-```python
-{
-    "id": 21,
-    "result": "Bookshelf",
-    "result_desc": "Used for enchanting.",
-    "grid": [
-        "oak_planks", "oak_planks", "oak_planks",
-        "wool",       "wool",       "wool",
-        "oak_planks", "oak_planks", "oak_planks",
-    ],
-},
-```
+1. Edit `recipes.py`. Each recipe looks like:
 
-The `grid` is a flat list of 9 item IDs in row-major order:
-```
-0 1 2
-3 4 5
-6 7 8
-```
-Use `"air"` for empty slots.
+   ```python
+   {
+       "id": 47,
+       "result": "Bookshelf",
+       "result_desc": "Used for enchanting.",
+       "grid": [
+           "oak_planks", "oak_planks", "oak_planks",
+           "wool",       "wool",       "wool",
+           "oak_planks", "oak_planks", "oak_planks",
+       ],
+   },
+   ```
 
----
+   The `grid` is a flat list of 9 item IDs in row-major order:
+   ```
+   0 1 2
+   3 4 5
+   6 7 8
+   ```
+   Use `"air"` for empty slots. A guardrail rejects any recipe whose grid is
+   identical to another's — this fails loudly instead of shipping an
+   unguessable puzzle.
 
-## 🛠 API Endpoints
+2. Regenerate the shipped data file:
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET`  | `/api/recipe` | Today's target item (no solution) |
-| `GET`  | `/api/items` | All item definitions |
-| `POST` | `/api/guess` | Submit a guess, get colour feedback |
-| `POST` | `/api/solution` | Reveal the full solution grid |
+   ```bash
+   python generate_recipes_data.py
+   ```
 
-### POST `/api/guess`
-```json
-// Request
-{ "recipe_id": 1, "guess": ["oak_planks","oak_planks","oak_planks","oak_planks","air","oak_planks","oak_planks","oak_planks","oak_planks"] }
-
-// Response
-{ "feedback": ["correct","correct","correct","correct","correct","correct","correct","correct","correct"], "correct": true }
-```
+New items need an icon — see `script.js`'s `ITEM_IMAGES` map and
+`assets/items/Minecraft_Items_latest_AllVisible/` for the icon pack every
+item and crafting result draws from.
 
 ---
 
 ## 🔧 VS Code Tips
 
-- Install the **Python** extension to get IntelliSense in `app.py`.
-- Install **Live Server** to serve `index.html` with hot-reload.
-- Open the integrated terminal and split it: one pane for `python app.py`,
-  one for editing files.
+- Install **Live Server** to serve `index.html` with hot-reload while editing.
+- `generate_recipes_data.py` only needs a plain Python 3 install — no pip
+  packages required.
