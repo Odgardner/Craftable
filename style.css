@@ -477,8 +477,8 @@ header {
 }
 
 .result-slot {
-  width: 64px;
-  height: 64px;
+  width: var(--slot-size);
+  height: var(--slot-size);
   background: var(--panel-light);
   padding: 2px;
   box-shadow: inset 0 0 0 2px var(--panel-dark);
@@ -747,22 +747,38 @@ header {
   margin-top: 0.8rem;
 }
 
-/* ── Responsive ────────────────────────────────────────── */
-.palette-section { overflow-x: auto; }
+/* ── Responsive ────────────────────────────────────────────
+   One breakpoint, verified to fit down to a 320px-wide phone with
+   margin to spare (checked by hand: 6-col inventory ≈ 279px, crafting
+   row ≈ 218px, header ≈ 260px — all well under 320px minus padding).
+   A 9-wide inventory grid simply doesn't fit any phone at a legible
+   touch-target size, so it reflows to 6 columns (18 items ÷ 6 = 3 clean
+   rows, no leftover space) instead of shrinking slots into unusable
+   targets or relying on horizontal scroll. ───────────────────── */
+.palette-section { overflow-x: auto; } /* safety net only; shouldn't trigger */
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   :root {
-    --slot-size: 46px;
+    --slot-size: 44px;
   }
 
-  .logo { font-size: 1rem; }
-  .logo-block { width: 28px; height: 28px; }
+  #app { padding: 0 0.4rem; }
 
-  .grid-wrapper { gap: 0.5rem; padding: 0.8rem; }
-}
+  .logo { gap: 3px; }
+  .logo-block { width: 22px; height: 22px; }
+  .header-inner { gap: 0.15rem; }
+  .tagline { font-size: 1rem; }
 
-@media (max-width: 420px) {
-  :root {
-    --slot-size: 38px;
+  .target-section,
+  .grid-wrapper,
+  .palette-section { padding: 0.6rem 0.5rem; }
+
+  .crafting-row { gap: 0.4rem; }
+  .arrow-icon svg { width: 22px; height: 16px; }
+
+  .modal-box { padding: 1.1rem; }
+
+  .item-palette {
+    grid-template-columns: repeat(6, var(--slot-size));
   }
 }
