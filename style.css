@@ -396,6 +396,50 @@ header {
   opacity: 0.75;
 }
 
+/* Feedback badges — color alone is hard to recall at a glance when
+   scanning past guesses, so each state also gets its own icon:
+   checkmark (right spot), swap arrows (right item, wrong spot in the
+   shape), and a cross (not in the recipe). Reused in the help legend
+   below so the mapping is taught right where players learn the colors. */
+.slot.correct::after,
+.slot.present::after,
+.slot.absent::after,
+.legend-cell.correct-cell::after,
+.legend-cell.present-cell::after,
+.legend-cell.absent-cell::after {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Minecraft', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: 0 0 0 1.5px rgba(255,255,255,.6);
+}
+.slot.correct::after, .legend-cell.correct-cell::after {
+  content: "✓";
+  background: var(--green-dark);
+  color: #eafce0;
+}
+.slot.present::after, .legend-cell.present-cell::after {
+  content: "⇄";
+  background: var(--yellow-dark);
+  color: #fff6d8;
+}
+.slot.absent::after, .legend-cell.absent-cell::after {
+  content: "✕";
+  background: var(--grey-dark);
+  color: #eee;
+}
+
 /* Slot flip animation for submitted rows */
 .slot.flip {
   animation: flip-cell .4s ease forwards;
@@ -649,6 +693,7 @@ header {
 .legend-cell {
   width: 48px;
   height: 36px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
