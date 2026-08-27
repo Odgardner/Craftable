@@ -95,6 +95,7 @@ const RESULT_EMOJIS = {
   "Cobblestone Wall":   "🧱",
   "Jukebox":            "🎵",
   "Note Block":         "🎵",
+  "Cauldron":           "🍯",
 };
 
 // Every icon in the game — ingredients and crafting results alike —

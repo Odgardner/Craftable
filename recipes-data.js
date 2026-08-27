@@ -1210,6 +1210,22 @@ const RECIPES = [
       "oak_planks",
       "oak_planks"
     ]
+  },
+  {
+    "id": 67,
+    "result": "Cauldron",
+    "result_desc": "Holds water, lava, or potions.",
+    "grid": [
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "iron",
+      "iron"
+    ]
   }
 ];
 
