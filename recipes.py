@@ -504,6 +504,218 @@ RECIPES = [
             "air",    "air",    "air",
         ],
     },
+
+    # Leggings — a shape the game was missing entirely.
+    {
+        "id": 47,
+        "result": "Leather Leggings",
+        "result_desc": "Basic leg protection.",
+        "grid": [
+            "leather", "leather", "leather",
+            "leather", "air",     "leather",
+            "leather", "air",     "leather",
+        ],
+    },
+    {
+        "id": 48,
+        "result": "Iron Leggings",
+        "result_desc": "Solid leg protection.",
+        "grid": [
+            "iron", "iron", "iron",
+            "iron", "air",  "iron",
+            "iron", "air",  "iron",
+        ],
+    },
+    {
+        "id": 49,
+        "result": "Golden Leggings",
+        "result_desc": "Stylish, if not very tough.",
+        "grid": [
+            "gold", "gold", "gold",
+            "gold", "air",  "gold",
+            "gold", "air",  "gold",
+        ],
+    },
+    {
+        "id": 50,
+        "result": "Diamond Leggings",
+        "result_desc": "Excellent leg protection.",
+        "grid": [
+            "diamond", "diamond", "diamond",
+            "diamond", "air",     "diamond",
+            "diamond", "air",     "diamond",
+        ],
+    },
+
+    # Remaining Helmets
+    {
+        "id": 51,
+        "result": "Leather Helmet",
+        "result_desc": "Basic head protection.",
+        "grid": [
+            "leather", "leather", "leather",
+            "leather", "air",     "leather",
+            "air",     "air",     "air",
+        ],
+    },
+    {
+        "id": 52,
+        "result": "Golden Helmet",
+        "result_desc": "Shiny, if not very tough.",
+        "grid": [
+            "gold", "gold", "gold",
+            "gold", "air",  "gold",
+            "air",  "air",  "air",
+        ],
+    },
+    {
+        "id": 53,
+        "result": "Diamond Helmet",
+        "result_desc": "Excellent head protection.",
+        "grid": [
+            "diamond", "diamond", "diamond",
+            "diamond", "air",     "diamond",
+            "air",     "air",     "air",
+        ],
+    },
+
+    # Remaining Chestplates
+    {
+        "id": 54,
+        "result": "Leather Chestplate",
+        "result_desc": "Basic chest protection.",
+        "grid": [
+            "leather", "air",     "leather",
+            "leather", "leather", "leather",
+            "leather", "leather", "leather",
+        ],
+    },
+    {
+        "id": 55,
+        "result": "Iron Chestplate",
+        "result_desc": "Solid chest protection.",
+        "grid": [
+            "iron", "air",  "iron",
+            "iron", "iron", "iron",
+            "iron", "iron", "iron",
+        ],
+    },
+    {
+        "id": 56,
+        "result": "Golden Chestplate",
+        "result_desc": "Stylish, if not very tough.",
+        "grid": [
+            "gold", "air",  "gold",
+            "gold", "gold", "gold",
+            "gold", "gold", "gold",
+        ],
+    },
+
+    # Remaining Boots
+    {
+        "id": 57,
+        "result": "Golden Boots",
+        "result_desc": "Stylish, if not very tough.",
+        "grid": [
+            "air",  "air", "air",
+            "gold", "air", "gold",
+            "gold", "air", "gold",
+        ],
+    },
+    {
+        "id": 58,
+        "result": "Diamond Boots",
+        "result_desc": "Excellent foot protection.",
+        "grid": [
+            "air",     "air", "air",
+            "diamond", "air", "diamond",
+            "diamond", "air", "diamond",
+        ],
+    },
+
+    # Storage blocks — nine ingots/gems compressed into one block.
+    {
+        "id": 59,
+        "result": "Iron Block",
+        "result_desc": "Nine iron ingots, compressed.",
+        "grid": [
+            "iron", "iron", "iron",
+            "iron", "iron", "iron",
+            "iron", "iron", "iron",
+        ],
+    },
+    {
+        "id": 60,
+        "result": "Gold Block",
+        "result_desc": "Nine gold ingots, compressed.",
+        "grid": [
+            "gold", "gold", "gold",
+            "gold", "gold", "gold",
+            "gold", "gold", "gold",
+        ],
+    },
+    {
+        "id": 61,
+        "result": "Diamond Block",
+        "result_desc": "Nine diamonds, compressed.",
+        "grid": [
+            "diamond", "diamond", "diamond",
+            "diamond", "diamond", "diamond",
+            "diamond", "diamond", "diamond",
+        ],
+    },
+    {
+        "id": 62,
+        "result": "Coal Block",
+        "result_desc": "Nine coal, compressed. Burns for a very long time.",
+        "grid": [
+            "coal", "coal", "coal",
+            "coal", "coal", "coal",
+            "coal", "coal", "coal",
+        ],
+    },
+    {
+        "id": 63,
+        "result": "Redstone Block",
+        "result_desc": "Nine redstone dust, compressed. Always powered.",
+        "grid": [
+            "redstone", "redstone", "redstone",
+            "redstone", "redstone", "redstone",
+            "redstone", "redstone", "redstone",
+        ],
+    },
+
+    # More blocks & decorations
+    {
+        "id": 64,
+        "result": "Cobblestone Wall",
+        "result_desc": "Keeps mobs out of your base.",
+        "grid": [
+            "cobble", "cobble", "cobble",
+            "cobble", "cobble", "cobble",
+            "air",    "air",    "air",
+        ],
+    },
+    {
+        "id": 65,
+        "result": "Jukebox",
+        "result_desc": "Plays music discs.",
+        "grid": [
+            "oak_planks", "oak_planks", "oak_planks",
+            "oak_planks", "diamond",    "oak_planks",
+            "oak_planks", "oak_planks", "oak_planks",
+        ],
+    },
+    {
+        "id": 66,
+        "result": "Note Block",
+        "result_desc": "Plays a note when powered.",
+        "grid": [
+            "oak_planks", "oak_planks", "oak_planks",
+            "oak_planks", "redstone",   "oak_planks",
+            "oak_planks", "oak_planks", "oak_planks",
+        ],
+    },
 ]
 
 # Guardrail: two recipes sharing an identical grid would be genuinely
