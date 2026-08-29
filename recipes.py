@@ -617,9 +617,19 @@ RECIPES = [
             "oak_planks", "oak_planks", "oak_planks",
         ],
     },
-    # ── Storage Blocks ──
     {
         "id": 57,
+        "result": "Observer",
+        "result_desc": "Emits a signal when the block in front changes.",
+        "grid": [
+            "cobble",   "cobble",   "cobble",
+            "redstone", "redstone", "quartz",
+            "cobble",   "cobble",   "cobble",
+        ],
+    },
+    # ── Storage Blocks ──
+    {
+        "id": 58,
         "result": "Iron Block",
         "result_desc": "Nine iron ingots, compressed.",
         "grid": [
@@ -629,7 +639,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 58,
+        "id": 59,
         "result": "Gold Block",
         "result_desc": "Nine gold ingots, compressed.",
         "grid": [
@@ -639,7 +649,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 59,
+        "id": 60,
         "result": "Diamond Block",
         "result_desc": "Nine diamonds, compressed.",
         "grid": [
@@ -649,7 +659,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 60,
+        "id": 61,
         "result": "Coal Block",
         "result_desc": "Nine coal, compressed. Burns for a very long time.",
         "grid": [
@@ -659,7 +669,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 61,
+        "id": 62,
         "result": "Redstone Block",
         "result_desc": "Nine redstone dust, compressed. Always powered.",
         "grid": [
@@ -670,7 +680,7 @@ RECIPES = [
     },
     # ── Building Blocks ──
     {
-        "id": 62,
+        "id": 63,
         "result": "Stone Bricks",
         "result_desc": "A sturdy building block.",
         "grid": [
@@ -680,7 +690,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 63,
+        "id": 64,
         "result": "Stonecutter",
         "result_desc": "Cuts stone into precise shapes.",
         "grid": [
@@ -690,7 +700,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 64,
+        "id": 65,
         "result": "Stone Pressure Plate",
         "result_desc": "Triggers when stepped on.",
         "grid": [
@@ -700,7 +710,17 @@ RECIPES = [
         ],
     },
     {
-        "id": 65,
+        "id": 66,
+        "result": "Oak Pressure Plate",
+        "result_desc": "Triggers when stepped on.",
+        "grid": [
+            "air",        "air",        "air",
+            "oak_planks", "oak_planks", "air",
+            "air",        "air",        "air",
+        ],
+    },
+    {
+        "id": 67,
         "result": "Quartz Block",
         "result_desc": "A smooth, decorative building block.",
         "grid": [
@@ -710,7 +730,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 66,
+        "id": 68,
         "result": "Cobblestone Wall",
         "result_desc": "Keeps mobs out of your base.",
         "grid": [
@@ -720,7 +740,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 67,
+        "id": 69,
         "result": "Cobblestone Slab",
         "result_desc": "Half a block of cobblestone.",
         "grid": [
@@ -730,7 +750,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 68,
+        "id": 70,
         "result": "Stone Slab",
         "result_desc": "Half a block of stone.",
         "grid": [
@@ -740,7 +760,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 69,
+        "id": 71,
         "result": "Oak Slab",
         "result_desc": "Half a block of oak planks.",
         "grid": [
@@ -750,7 +770,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 70,
+        "id": 72,
         "result": "Oak Button",
         "result_desc": "A simple wooden switch.",
         "grid": [
@@ -760,7 +780,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 71,
+        "id": 73,
         "result": "Stone Button",
         "result_desc": "A simple stone switch.",
         "grid": [
@@ -770,7 +790,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 72,
+        "id": 74,
         "result": "Sandstone",
         "result_desc": "A desert building block.",
         "grid": [
@@ -781,7 +801,7 @@ RECIPES = [
     },
     # ── Decoration & Misc ──
     {
-        "id": 73,
+        "id": 75,
         "result": "Sign",
         "result_desc": "Leaves a message for later.",
         "grid": [
@@ -791,7 +811,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 74,
+        "id": 76,
         "result": "Boat",
         "result_desc": "Sails across water.",
         "grid": [
@@ -801,7 +821,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 75,
+        "id": 77,
         "result": "Bed",
         "result_desc": "Skip the night — or reset your spawn.",
         "grid": [
@@ -811,7 +831,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 76,
+        "id": 78,
         "result": "Painting",
         "result_desc": "Decorates a wall.",
         "grid": [
@@ -821,7 +841,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 77,
+        "id": 79,
         "result": "Item Frame",
         "result_desc": "Displays a single item on a wall.",
         "grid": [
@@ -831,7 +851,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 78,
+        "id": 80,
         "result": "Jukebox",
         "result_desc": "Plays music discs.",
         "grid": [
@@ -841,7 +861,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 79,
+        "id": 81,
         "result": "Cauldron",
         "result_desc": "Holds water, lava, or potions.",
         "grid": [
@@ -851,7 +871,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 80,
+        "id": 82,
         "result": "TNT",
         "result_desc": "Explosive. Handle with care.",
         "grid": [
@@ -861,7 +881,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 81,
+        "id": 83,
         "result": "Carpet",
         "result_desc": "A thin, colorful floor covering.",
         "grid": [
@@ -872,7 +892,7 @@ RECIPES = [
     },
     # ── Doors & Trapdoors ──
     {
-        "id": 82,
+        "id": 84,
         "result": "Oak Door",
         "result_desc": "Opens and closes to keep mobs out.",
         "grid": [
@@ -882,7 +902,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 83,
+        "id": 85,
         "result": "Iron Door",
         "result_desc": "Only opens via redstone — mobs can't budge it.",
         "grid": [
@@ -892,7 +912,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 84,
+        "id": 86,
         "result": "Oak Trapdoor",
         "result_desc": "A hatch for floors and ceilings.",
         "grid": [
@@ -902,7 +922,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 85,
+        "id": 87,
         "result": "Iron Trapdoor",
         "result_desc": "A redstone-only hatch for floors and ceilings.",
         "grid": [

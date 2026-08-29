@@ -114,6 +114,8 @@ const RESULT_EMOJIS = {
   "Iron Door":          "🚪",
   "Oak Trapdoor":       "🚪",
   "Iron Trapdoor":      "🚪",
+  "Observer":           "👁",
+  "Oak Pressure Plate": "⬜",
 };
 
 // Every icon in the game — ingredients and crafting results alike —
