@@ -32,13 +32,22 @@
       <button id="help-btn" class="icon-btn" title="How to play">?</button>
     </header>
 
+    <!-- ── Mode selector ──────────────────────────── -->
+    <div class="mode-bar">
+      <div class="mode-toggle" role="tablist" aria-label="Game mode">
+        <button class="mode-btn active" id="mode-daily-btn" data-mode="daily" role="tab" aria-selected="true">Daily</button>
+        <button class="mode-btn" id="mode-random-btn" data-mode="random" role="tab" aria-selected="false">Random</button>
+      </div>
+      <button class="new-puzzle-btn hidden" id="new-puzzle-btn">New Puzzle</button>
+    </div>
+
     <!-- ── Help Modal ──────────────────────────────── -->
     <div id="help-modal" class="modal hidden" role="dialog" aria-modal="true">
       <div class="modal-box">
         <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
         <div class="modal-scroll">
           <h2>How to Play</h2>
-          <p>Figure out today's Minecraft crafting recipe in <strong>10 attempts</strong>.</p>
+          <p>Figure out a Minecraft crafting recipe in <strong>10 attempts</strong>.</p>
 
           <h3>Controls</h3>
           <p>Click an item in the <strong>Inventory</strong>, then click a slot in the <strong>Crafting</strong> grid to place it — or the other way around, select a slot first. Click a filled slot again (or hit <strong>Clear Grid</strong>) to empty it. Once your arrangement matches any real recipe's shape, the output slot fills in and <strong>Craft &amp; Submit</strong> lights up.</p>
@@ -63,8 +72,8 @@
           <h3>Remembering What You've Learned</h3>
           <p>Once an item scores green, yellow, or grey in a guess, its slot in the Inventory keeps that colour for the rest of the round — so you don't have to scroll back through past guesses to remember what you've already ruled out.</p>
 
-          <h3>Daily Puzzle</h3>
-          <p>A new recipe unlocks every day at <strong>midnight in your own timezone</strong> — same as Wordle. Come back tomorrow for a fresh one!</p>
+          <h3>Daily vs. Random</h3>
+          <p>In <strong>Daily</strong> mode, everyone gets the same recipe, which unlocks at <strong>midnight in your own timezone</strong> — same as Wordle. Switch to <strong>Random</strong> for unlimited practice: hit <strong>New Puzzle</strong> any time for a fresh, randomly picked recipe.</p>
         </div>
       </div>
     </div>
@@ -74,7 +83,7 @@
 
     <!-- ── Target item display ────────────────────── -->
     <section class="target-section">
-      <div class="target-label">Today's recipe makes:</div>
+      <div class="target-label" id="target-label">Today's recipe makes:</div>
       <div class="target-item">
         <div class="target-icon" id="target-icon"></div>
         <div class="target-name" id="target-name">Loading…</div>

@@ -190,6 +190,17 @@ function getDailyRecipe() {
   return RECIPES[dayIndex % RECIPES.length];
 }
 
+// Random mode: any recipe, avoiding an immediate repeat of excludeId
+// (e.g. the one just finished) so hitting "New Puzzle" always feels new.
+function getRandomRecipe(excludeId) {
+  if (RECIPES.length <= 1) return RECIPES[0];
+  let recipe;
+  do {
+    recipe = RECIPES[Math.floor(Math.random() * RECIPES.length)];
+  } while (recipe.id === excludeId);
+  return recipe;
+}
+
 function checkGuess(recipeId, guess) {
   const recipe = RECIPES.find((r) => r.id === recipeId);
   const target = recipe.grid;
@@ -248,6 +259,7 @@ function getSolutionGrid(recipeId) {
 
 // ── Game state ──────────────────────────────────────────────
 const state = {
+  mode:          "daily",
   recipeId:      null,
   targetResult:  "",
   targetDesc:    "",
@@ -262,6 +274,54 @@ const state = {
 };
 
 let allRecipes = [];
+
+const MODE_STORAGE_KEY = "craftable-mode";
+
+function loadStoredMode() {
+  try {
+    return localStorage.getItem(MODE_STORAGE_KEY) === "random" ? "random" : "daily";
+  } catch (e) {
+    return "daily";
+  }
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  try { localStorage.setItem(MODE_STORAGE_KEY, mode); } catch (e) { /* storage unavailable — mode just won't persist */ }
+
+  const isRandom = mode === "random";
+  $("mode-daily-btn").classList.toggle("active", !isRandom);
+  $("mode-daily-btn").setAttribute("aria-selected", String(!isRandom));
+  $("mode-random-btn").classList.toggle("active", isRandom);
+  $("mode-random-btn").setAttribute("aria-selected", String(isRandom));
+  $("new-puzzle-btn").classList.toggle("hidden", !isRandom);
+  $("target-label").textContent = isRandom ? "This recipe makes:" : "Today's recipe makes:";
+}
+
+// Resets all per-round state and re-renders everything that depends on
+// it — used both for the very first load and for switching modes /
+// hitting "New Puzzle" without a full page reload.
+function startRound(recipe) {
+  state.recipeId     = recipe.id;
+  state.targetResult = recipe.result;
+  state.targetDesc   = recipe.result_desc;
+  state.currentGrid  = Array(9).fill("air");
+  state.selectedSlot = null;
+  state.selectedItem = null;
+  state.attempts     = [];
+  state.gameOver     = false;
+  state.won          = false;
+  state.currentMatch = null;
+
+  $("attempt-num").textContent = 1;
+  $("history-section").innerHTML = "";
+  $("gameover-overlay").classList.add("hidden");
+
+  renderTarget();
+  renderCraftingGrid();
+  updatePaletteStatuses();
+  updateSubmitBtn();
+}
 
 // ── Utility ─────────────────────────────────────────────────
 function $(id)   { return document.getElementById(id); }
@@ -280,18 +340,15 @@ function showToast(msg, type = "") {
 function init() {
   $("max-attempts").textContent = MAX_ATTEMPTS;
 
-  state.items        = ITEMS;
-  const recipe        = getDailyRecipe();
-  state.recipeId     = recipe.id;
-  state.targetResult = recipe.result;
-  state.targetDesc   = recipe.result_desc;
-  allRecipes         = RECIPES;
+  state.items = ITEMS;
+  allRecipes  = RECIPES;
   allRecipes.forEach((r) => { r.normGrid = normalizeGrid(r.grid); });
 
-  renderTarget();
-  renderCraftingGrid();
   renderPalette();
-  updateSubmitBtn();
+
+  const initialMode = loadStoredMode();
+  setMode(initialMode);
+  startRound(initialMode === "random" ? getRandomRecipe() : getDailyRecipe());
 
   $("help-btn").addEventListener("click", () => {
     $("help-modal").classList.remove("hidden");
@@ -305,6 +362,20 @@ function init() {
 
   $("clear-btn").addEventListener("click", clearGrid);
   $("submit-btn").addEventListener("click", submitGuess);
+
+  $("mode-daily-btn").addEventListener("click", () => {
+    if (state.mode === "daily") return;
+    setMode("daily");
+    startRound(getDailyRecipe());
+  });
+  $("mode-random-btn").addEventListener("click", () => {
+    if (state.mode === "random") return;
+    setMode("random");
+    startRound(getRandomRecipe(state.recipeId));
+  });
+  $("new-puzzle-btn").addEventListener("click", () => {
+    startRound(getRandomRecipe(state.recipeId));
+  });
 }
 
 // ── Render helpers ──────────────────────────────────────────

@@ -198,6 +198,61 @@ header {
 .icon-btn:hover { filter: brightness(1.12); }
 .icon-btn:active { box-shadow: inset -2px -2px 0 var(--panel-light), inset 2px 2px 0 var(--panel-dark); }
 
+/* ── Mode selector ─────────────────────────────────────── */
+.mode-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.mode-toggle {
+  display: flex;
+  background: var(--panel-dark);
+  padding: 3px;
+  border-radius: 999px;
+  gap: 3px;
+}
+
+.mode-btn {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.45rem 1.1rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #cfcfcf;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.mode-btn:hover { color: #fff; }
+.mode-btn.active {
+  background: var(--panel);
+  color: var(--text-dark);
+}
+
+.new-puzzle-btn {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.5rem 1.1rem;
+  border: none;
+  cursor: pointer;
+  background: var(--panel);
+  color: var(--text-dark);
+  box-shadow: inset 2px 2px 0 var(--panel-light), inset -2px -2px 0 var(--panel-dark);
+  clip-path: polygon(
+    var(--notch-sm) 0, calc(100% - var(--notch-sm)) 0, 100% var(--notch-sm), 100% calc(100% - var(--notch-sm)),
+    calc(100% - var(--notch-sm)) 100%, var(--notch-sm) 100%, 0 calc(100% - var(--notch-sm)), 0 var(--notch-sm)
+  );
+}
+.new-puzzle-btn:hover { filter: brightness(1.08); }
+.new-puzzle-btn:active { box-shadow: inset -2px -2px 0 var(--panel-light), inset 2px 2px 0 var(--panel-dark); }
+.new-puzzle-btn.hidden { display: none; }
+
 /* ── Toast ─────────────────────────────────────────────── */
 .toast {
   position: fixed;
