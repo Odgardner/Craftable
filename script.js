@@ -108,6 +108,12 @@ const RESULT_EMOJIS = {
   "Oak Slab":           "🪵",
   "Oak Button":         "🔘",
   "Stone Button":       "🔘",
+  "Sandstone":          "🟨",
+  "Carpet":             "🟪",
+  "Oak Door":           "🚪",
+  "Iron Door":          "🚪",
+  "Oak Trapdoor":       "🚪",
+  "Iron Trapdoor":      "🚪",
 };
 
 // Every icon in the game — ingredients and crafting results alike —
@@ -304,9 +310,10 @@ function init() {
 // Vanilla item-ID overrides for results whose icon isn't a plain
 // snake_case of the name (modern MC splits these by wood type/colour).
 const RESULT_IMAGE_OVERRIDES = {
-  "Sign": "oak_sign",
-  "Boat": "oak_boat",
-  "Bed":  "white_bed",
+  "Sign":   "oak_sign",
+  "Boat":   "oak_boat",
+  "Bed":    "white_bed",
+  "Carpet": "white_carpet",
 };
 function resultImagePath(result) {
   const id = RESULT_IMAGE_OVERRIDES[result]

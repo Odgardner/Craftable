@@ -769,9 +769,19 @@ RECIPES = [
             "air", "air", "air",
         ],
     },
-    # ── Decoration & Misc ──
     {
         "id": 72,
+        "result": "Sandstone",
+        "result_desc": "A desert building block.",
+        "grid": [
+            "sand", "sand", "air",
+            "sand", "sand", "air",
+            "air",  "air",  "air",
+        ],
+    },
+    # ── Decoration & Misc ──
+    {
+        "id": 73,
         "result": "Sign",
         "result_desc": "Leaves a message for later.",
         "grid": [
@@ -781,7 +791,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 73,
+        "id": 74,
         "result": "Boat",
         "result_desc": "Sails across water.",
         "grid": [
@@ -791,7 +801,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 74,
+        "id": 75,
         "result": "Bed",
         "result_desc": "Skip the night — or reset your spawn.",
         "grid": [
@@ -801,7 +811,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 75,
+        "id": 76,
         "result": "Painting",
         "result_desc": "Decorates a wall.",
         "grid": [
@@ -811,7 +821,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 76,
+        "id": 77,
         "result": "Item Frame",
         "result_desc": "Displays a single item on a wall.",
         "grid": [
@@ -821,7 +831,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 77,
+        "id": 78,
         "result": "Jukebox",
         "result_desc": "Plays music discs.",
         "grid": [
@@ -831,7 +841,7 @@ RECIPES = [
         ],
     },
     {
-        "id": 78,
+        "id": 79,
         "result": "Cauldron",
         "result_desc": "Holds water, lava, or potions.",
         "grid": [
@@ -841,13 +851,64 @@ RECIPES = [
         ],
     },
     {
-        "id": 79,
+        "id": 80,
         "result": "TNT",
         "result_desc": "Explosive. Handle with care.",
         "grid": [
             "gunpowder", "sand", "gunpowder",
             "sand", "gunpowder", "sand",
             "gunpowder", "sand", "gunpowder",
+        ],
+    },
+    {
+        "id": 81,
+        "result": "Carpet",
+        "result_desc": "A thin, colorful floor covering.",
+        "grid": [
+            "wool", "wool", "air",
+            "air",  "air",  "air",
+            "air",  "air",  "air",
+        ],
+    },
+    # ── Doors & Trapdoors ──
+    {
+        "id": 82,
+        "result": "Oak Door",
+        "result_desc": "Opens and closes to keep mobs out.",
+        "grid": [
+            "oak_planks", "oak_planks", "air",
+            "oak_planks", "oak_planks", "air",
+            "oak_planks", "oak_planks", "air",
+        ],
+    },
+    {
+        "id": 83,
+        "result": "Iron Door",
+        "result_desc": "Only opens via redstone — mobs can't budge it.",
+        "grid": [
+            "iron", "iron", "air",
+            "iron", "iron", "air",
+            "iron", "iron", "air",
+        ],
+    },
+    {
+        "id": 84,
+        "result": "Oak Trapdoor",
+        "result_desc": "A hatch for floors and ceilings.",
+        "grid": [
+            "oak_planks", "oak_planks", "oak_planks",
+            "oak_planks", "oak_planks", "oak_planks",
+            "air",        "air",        "air",
+        ],
+    },
+    {
+        "id": 85,
+        "result": "Iron Trapdoor",
+        "result_desc": "A redstone-only hatch for floors and ceilings.",
+        "grid": [
+            "iron", "iron", "iron",
+            "iron", "iron", "iron",
+            "air",  "air",  "air",
         ],
     },
 ]
