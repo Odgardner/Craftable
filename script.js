@@ -403,6 +403,34 @@ function renderPalette() {
   });
 }
 
+// Like Wordle's on-screen keyboard: each item keeps the best feedback
+// it's ever earned across all guesses so far (correct beats present
+// beats absent), so the inventory itself becomes a memory aid.
+const STATUS_RANK = { absent: 1, present: 2, correct: 3 };
+
+function getItemStatuses() {
+  const status = {};
+  state.attempts.forEach((attempt) => {
+    attempt.guess.forEach((itemId, i) => {
+      if (itemId === "air") return;
+      const fb = attempt.feedback[i];
+      if (!status[itemId] || STATUS_RANK[fb] > STATUS_RANK[status[itemId]]) {
+        status[itemId] = fb;
+      }
+    });
+  });
+  return status;
+}
+
+function updatePaletteStatuses() {
+  const statuses = getItemStatuses();
+  $$(".palette-item").forEach((el) => {
+    el.classList.remove("status-correct", "status-present", "status-absent");
+    const status = statuses[el.dataset.itemId];
+    if (status) el.classList.add(`status-${status}`);
+  });
+}
+
 function makePaletteItem(id) {
   const btn = document.createElement("div");
   btn.className      = "palette-item";
@@ -551,6 +579,7 @@ function submitGuess() {
   $("attempt-num").textContent = Math.min(state.attempts.length + 1, MAX_ATTEMPTS);
 
   renderHistory();
+  updatePaletteStatuses();
 
   if (result.correct) {
     state.gameOver = true;

@@ -575,6 +575,13 @@ header {
   overflow: hidden;
 }
 
+/* Best-known feedback for this item across all guesses so far — same
+   colours as the crafting-grid feedback, so the inventory doubles as
+   a memory aid (like Wordle's on-screen keyboard). */
+.palette-item.status-correct { background: var(--green-bg); }
+.palette-item.status-present { background: var(--yellow-bg); }
+.palette-item.status-absent  { background: var(--grey-bg); opacity: 0.7; }
+
 .palette-item:hover {
   background: var(--slot-hover);
 }
