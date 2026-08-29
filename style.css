@@ -538,7 +538,10 @@ header {
 /* ── Item palette ("Inventory") ─────────────────────────── */
 .palette-section {
   width: 100%;
-  padding: 0.9rem 1.4rem 1.1rem;
+  /* Extra bottom padding to counter the "Inventory" label + hint text
+     sitting above the grid — without it the panel reads top-heavy even
+     though the raw top/bottom padding values are close. */
+  padding: 0.9rem 1.4rem 2.2rem;
 }
 
 .palette-hint {
@@ -777,8 +780,8 @@ header {
   .tagline { font-size: 1rem; }
 
   .target-section,
-  .grid-wrapper,
-  .palette-section { padding: 0.6rem 0.5rem; }
+  .grid-wrapper { padding: 0.6rem 0.5rem; }
+  .palette-section { padding: 0.6rem 0.5rem 1.4rem; }
 
   .crafting-row { gap: 0.4rem; }
   .arrow-icon svg { width: 22px; height: 16px; }
