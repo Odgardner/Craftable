@@ -184,14 +184,38 @@ function checkGuess(recipeId, guess) {
   const feedback = Array(9).fill("absent");
   const box = boundingBox(guess);
   if (box) {
+    const normIndexOf = Array(9).fill(-1);
     for (let i = 0; i < 9; i++) {
       if (guess[i] === "air") continue;
       const r = Math.floor(i / 3), c = i % 3;
-      const normIdx = (r - box.minR) * 3 + (c - box.minC);
-      if (normGuess[normIdx] === normTarget[normIdx]) {
-        feedback[i] = "correct";   // right item, right spot in the shape
-      } else if (normTarget.includes(normGuess[normIdx])) {
-        feedback[i] = "present";   // right item, wrong spot in the shape
+      normIndexOf[i] = (r - box.minR) * 3 + (c - box.minC);
+    }
+
+    // How many of each item the shape actually calls for — a guess can't
+    // earn "present" credit for more copies of an item than the recipe
+    // uses (e.g. filling every slot with redstone when the Clock only
+    // needs one, in the center).
+    const remaining = {};
+    normTarget.forEach((item) => {
+      if (item !== "air") remaining[item] = (remaining[item] || 0) + 1;
+    });
+
+    // Pass 1: exact matches first, consuming their share of the count.
+    for (let i = 0; i < 9; i++) {
+      if (normIndexOf[i] === -1) continue;
+      if (normGuess[normIndexOf[i]] === normTarget[normIndexOf[i]]) {
+        feedback[i] = "correct";
+        remaining[guess[i]]--;
+      }
+    }
+
+    // Pass 2: everything else gets "present" only while copies last.
+    for (let i = 0; i < 9; i++) {
+      if (normIndexOf[i] === -1 || feedback[i] === "correct") continue;
+      const item = guess[i];
+      if (remaining[item] > 0) {
+        feedback[i] = "present";
+        remaining[item]--;
       }
     }
   }
