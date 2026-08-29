@@ -35,32 +35,37 @@
     <!-- ── Help Modal ──────────────────────────────── -->
     <div id="help-modal" class="modal hidden" role="dialog" aria-modal="true">
       <div class="modal-box">
-        <button class="modal-close" id="modal-close-btn">✕</button>
-        <h2>How to Play</h2>
-        <p>Figure out today's Minecraft crafting recipe in <strong>10 attempts</strong>.</p>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+        <div class="modal-scroll">
+          <h2>How to Play</h2>
+          <p>Figure out today's Minecraft crafting recipe in <strong>10 attempts</strong>.</p>
 
-        <p>Click an item in the <strong>Inventory</strong>, then click a slot in the <strong>Crafting</strong> grid to place it — or the other way around, select a slot first. Click a filled slot again (or hit <strong>Clear Grid</strong>) to empty it. Once your arrangement matches any real recipe's shape, the output slot fills in and <strong>Craft &amp; Submit</strong> lights up.</p>
+          <h3>Controls</h3>
+          <p>Click an item in the <strong>Inventory</strong>, then click a slot in the <strong>Crafting</strong> grid to place it — or the other way around, select a slot first. Click a filled slot again (or hit <strong>Clear Grid</strong>) to empty it. Once your arrangement matches any real recipe's shape, the output slot fills in and <strong>Craft &amp; Submit</strong> lights up.</p>
 
-        <div class="help-legend">
-          <div class="legend-row">
-            <div class="legend-cell correct-cell"><img src="assets/items/Minecraft_Items_latest_AllVisible/oak_planks.png" class="item-img" alt=""></div>
-            <span>Right item, right spot in the shape</span>
+          <h3>Feedback Colors</h3>
+          <div class="help-legend">
+            <div class="legend-row">
+              <div class="legend-cell correct-cell"><img src="assets/items/Minecraft_Items_latest_AllVisible/oak_planks.png" class="item-img" alt=""></div>
+              <span>Right item, right spot in the shape</span>
+            </div>
+            <div class="legend-row">
+              <div class="legend-cell present-cell"><img src="assets/items/Minecraft_Items_latest_AllVisible/iron_ingot.png" class="item-img" alt=""></div>
+              <span>Right item, but the wrong spot</span>
+            </div>
+            <div class="legend-row">
+              <div class="legend-cell absent-cell"><img src="assets/items/Minecraft_Items_latest_AllVisible/gold_ingot.png" class="item-img" alt=""></div>
+              <span>Not used — or you've already placed every copy the recipe needs</span>
+            </div>
           </div>
-          <div class="legend-row">
-            <div class="legend-cell present-cell"><img src="assets/items/Minecraft_Items_latest_AllVisible/iron_ingot.png" class="item-img" alt=""></div>
-            <span>Right item, but the wrong spot</span>
-          </div>
-          <div class="legend-row">
-            <div class="legend-cell absent-cell"><img src="assets/items/Minecraft_Items_latest_AllVisible/gold_ingot.png" class="item-img" alt=""></div>
-            <span>Not used — or you've already placed every copy the recipe needs</span>
-          </div>
+          <p>Matching works like real Minecraft: a shape counts as correct <strong>anywhere</strong> in the 3×3 grid, not just one fixed spot — the Crafting Table's 2×2 block, for example, is right in any of its four possible corners.</p>
+
+          <h3>Remembering What You've Learned</h3>
+          <p>Once an item scores green, yellow, or grey in a guess, its slot in the Inventory keeps that colour for the rest of the round — so you don't have to scroll back through past guesses to remember what you've already ruled out.</p>
+
+          <h3>Daily Puzzle</h3>
+          <p>A new recipe unlocks every day at <strong>midnight in your own timezone</strong> — same as Wordle. Come back tomorrow for a fresh one!</p>
         </div>
-
-        <hr />
-
-        <p>Matching works like real Minecraft: a shape counts as correct <strong>anywhere</strong> in the 3×3 grid, not just one fixed spot — the Crafting Table's 2×2 block, for example, is right in any of its four possible corners.</p>
-
-        <p>Once an item scores green, yellow, or grey in a guess, its slot in the Inventory keeps that colour for the rest of the round — so you don't have to scroll back through past guesses to remember what you've already ruled out.</p>
       </div>
     </div>
 
@@ -135,18 +140,20 @@
     <!-- ── Game Over overlay ──────────────────────── -->
     <div id="gameover-overlay" class="modal hidden" role="dialog" aria-modal="true">
       <div class="modal-box gameover-box">
-        <button class="modal-close" id="gameover-close-btn" title="Review your guesses">✕</button>
-        <div id="gameover-icon" class="gameover-icon">🏆</div>
-        <h2 id="gameover-title">You Win!</h2>
-        <p id="gameover-msg"></p>
-        <div class="solution-label">The Recipe Was:</div>
-        <div class="solution-grid" id="solution-grid"></div>
-        <div class="solution-result-row">
-          <span class="arrow-icon-sm">→</span>
-          <div class="solution-result-icon" id="solution-result-icon"></div>
-          <div class="solution-result-name" id="solution-result-name"></div>
+        <button class="modal-close" id="gameover-close-btn" title="Review your guesses" aria-label="Close">✕</button>
+        <div class="modal-scroll">
+          <div id="gameover-icon" class="gameover-icon">🏆</div>
+          <h2 id="gameover-title">You Win!</h2>
+          <p id="gameover-msg"></p>
+          <div class="solution-label">The Recipe Was:</div>
+          <div class="solution-grid" id="solution-grid"></div>
+          <div class="solution-result-row">
+            <span class="arrow-icon-sm">→</span>
+            <div class="solution-result-icon" id="solution-result-icon"></div>
+            <div class="solution-result-name" id="solution-result-name"></div>
+          </div>
+          <p class="next-puzzle-msg">New puzzle every day 🌱</p>
         </div>
-        <p class="next-puzzle-msg">New puzzle every day 🌱</p>
       </div>
     </div>
 

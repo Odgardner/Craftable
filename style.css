@@ -609,10 +609,23 @@ header {
 .modal.hidden { display: none; }
 
 .modal-box {
-  padding: 1.6rem;
   max-width: 460px;
   width: 100%;
+  max-height: calc(100vh - 2rem);
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The close button lives outside this wrapper so it stays put in the
+   corner while the body scrolls — not just visible once, then lost
+   above the fold as soon as you start reading. */
+.modal-scroll {
+  flex: 1 1 auto;
+  min-height: 0; /* lets this flex child shrink below its content size, so overflow-y actually engages instead of just growing past the parent */
+  overflow-y: auto;
+  padding: 1.6rem;
+  padding-top: 2.6rem;
 }
 
 .modal-box h2 {
@@ -623,33 +636,46 @@ header {
   margin-bottom: 1rem;
 }
 
+.modal-box h3 {
+  font-family: 'Minecraft', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-header);
+  margin: 1.2rem 0 0.5rem;
+}
+.modal-box h3:first-of-type { margin-top: 0.4rem; }
+
 .modal-box p {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-dark);
   margin-bottom: 0.6rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .modal-box strong { color: #1c1c1c; }
 
-.modal-box hr {
-  border: none;
-  border-top: 2px solid var(--panel-shadow);
-  margin: 0.8rem 0;
-}
-
 .modal-close {
   position: absolute;
-  top: 0.6rem;
+  top: 0.7rem;
   right: 0.7rem;
-  background: transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--panel);
+  box-shadow: inset 2px 2px 0 var(--panel-light), inset -2px -2px 0 var(--panel-dark);
   border: none;
-  color: var(--text-mid);
-  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   font-family: 'Minecraft', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
-.modal-close:hover { color: var(--text-dark); }
+.modal-close:hover { color: #a24b3f; filter: brightness(1.05); }
+.modal-close:active { box-shadow: inset -2px -2px 0 var(--panel-light), inset 2px 2px 0 var(--panel-dark); }
 
 /* Help modal legend */
 .help-legend { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.8rem 0; }
@@ -784,7 +810,7 @@ header {
   .crafting-row { gap: 0.4rem; }
   .arrow-icon svg { width: 22px; height: 16px; }
 
-  .modal-box { padding: 1.1rem; }
+  .modal-scroll { padding: 1.1rem; padding-top: 2.2rem; }
 
   .item-palette {
     grid-template-columns: repeat(6, var(--slot-size));
