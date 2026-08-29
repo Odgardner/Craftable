@@ -236,11 +236,9 @@ header {
 
 .target-label {
   font-family: 'Minecraft', monospace;
-  font-weight: 600;
-  font-size: 0.68rem;
+  font-weight: 700;
+  font-size: 0.8rem;
   color: var(--text-mid);
-  text-transform: uppercase;
-  letter-spacing: 2px;
 }
 
 .target-item {
@@ -278,7 +276,7 @@ header {
 /* ── Attempt counter ───────────────────────────────────── */
 .attempt-counter {
   font-family: 'Minecraft', monospace;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.72rem;
   color: #eef4ff;
   text-shadow: 1px 1px 0 rgba(0,0,0,.6);
@@ -691,7 +689,7 @@ header {
 
 .solution-label {
   font-family: 'Minecraft', monospace;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.55rem;
   color: var(--text-mid);
   text-transform: uppercase;
@@ -751,7 +749,7 @@ header {
 
 .next-puzzle-msg {
   font-family: 'Minecraft', monospace;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.55rem;
   color: #2b6b1f;
   margin-top: 0.8rem;
