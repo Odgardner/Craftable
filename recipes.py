@@ -541,7 +541,7 @@ RECIPES = [
         "result": "Shield",
         "result_desc": "Blocks attacks when raised.",
         "grid": [
-            "air", "iron", "air",
+            "oak_planks", "iron", "oak_planks",
             "oak_planks", "oak_planks", "oak_planks",
             "air", "oak_planks", "air",
         ],

@@ -928,9 +928,9 @@ const RECIPES = [
     "result": "Shield",
     "result_desc": "Blocks attacks when raised.",
     "grid": [
-      "air",
+      "oak_planks",
       "iron",
-      "air",
+      "oak_planks",
       "oak_planks",
       "oak_planks",
       "oak_planks",
