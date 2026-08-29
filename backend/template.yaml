@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Craftable stats backend — records daily-mode completions to power
+  per-player streaks and a public "players today" count. Random mode
+  never calls this (streaks are a daily-puzzle concept only). Both
+  tables use low provisioned throughput (well under the 25 RCU/25 WCU
+  DynamoDB Always Free tier) so this stays $0 at hobby scale forever;
+  the Lambda is inside its own Always Free allocation too. API Gateway
+  is free for your first 12 months, then a fraction of a cent per
+  request after — negligible at this project's traffic.
+
+Parameters:
+  AllowedOrigin:
+    Type: String
+    Default: https://odgardner.github.io
+    Description: The site allowed to call this API (CORS).
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 5
+    MemorySize: 128
+    Environment:
+      Variables:
+        PLAYERS_TABLE: !Ref PlayersTable
+        DAILY_COUNTS_TABLE: !Ref DailyCountsTable
+
+Resources:
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref AllowedOrigin
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+
+  PlayersTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: playerId
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  DailyCountsTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: date
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: index.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PlayersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref DailyCountsTable
+      Events:
+        PostResult:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /result
+            Method: POST
+        GetStats:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /stats
+            Method: GET
+        GetTodayCount:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /today-count
+            Method: GET
+
+Outputs:
+  ApiUrl:
+    Description: Base URL to put into stats-config.js as STATS_API_BASE
+    Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"

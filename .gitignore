@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+
+# SAM/Lambda build artifacts (backend/)
+backend/.aws-sam/
+backend/src/node_modules/
+backend/samconfig.toml

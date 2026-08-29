@@ -184,9 +184,18 @@ function gridsEqual(a, b) {
 // The daily puzzle rolls over at the player's own local midnight, same
 // convention real Wordle uses — there's no server to define a shared
 // "today," and the full recipe list already ships to the client anyway.
-function getDailyRecipe() {
+// Local calendar date as YYYY-MM-DD — the same "today" the daily puzzle
+// itself rolls over on, so streak tracking matches whichever recipe the
+// player was actually shown (not a server-side UTC day that could
+// disagree with their local one).
+function getLocalDateString() {
   const now = new Date();
-  const dayIndex = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+  const utcMidnight = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  return new Date(utcMidnight).toISOString().slice(0, 10);
+}
+
+function getDailyRecipe() {
+  const dayIndex = Math.floor(Date.parse(getLocalDateString() + "T00:00:00Z") / 86400000);
   return RECIPES[dayIndex % RECIPES.length];
 }
 
@@ -296,6 +305,7 @@ function setMode(mode) {
   $("mode-random-btn").setAttribute("aria-selected", String(isRandom));
   $("new-puzzle-btn").classList.toggle("hidden", !isRandom);
   $("target-label").textContent = isRandom ? "This recipe makes:" : "Today's recipe makes:";
+  refreshTodayCount();
 }
 
 // Resets all per-round state and re-renders everything that depends on
@@ -375,6 +385,15 @@ function init() {
   });
   $("new-puzzle-btn").addEventListener("click", () => {
     startRound(getRandomRecipe(state.recipeId));
+  });
+
+  $("stats-btn").classList.toggle("hidden", !statsEnabled());
+  $("stats-btn").addEventListener("click", openStatsModal);
+  $("stats-close-btn").addEventListener("click", () => {
+    $("stats-modal").classList.add("hidden");
+  });
+  $("stats-modal").addEventListener("click", (e) => {
+    if (e.target === $("stats-modal")) $("stats-modal").classList.add("hidden");
   });
 }
 
@@ -676,9 +695,11 @@ function submitGuess() {
   if (result.correct) {
     state.gameOver = true;
     state.won      = true;
+    if (state.mode === "daily") recordDailyResult(true);
     setTimeout(() => showGameOver(true), 1200);
   } else if (state.attempts.length >= MAX_ATTEMPTS) {
     state.gameOver = true;
+    if (state.mode === "daily") recordDailyResult(false);
     setTimeout(() => showGameOver(false), 1200);
   } else {
     clearGrid();
@@ -726,6 +747,91 @@ function showGameOver(won) {
   $("gameover-close-btn").addEventListener("click", () => {
     $("gameover-overlay").classList.add("hidden");
   });
+}
+
+// ── Stats backend (optional — game works fully without it) ──────────
+// STATS_API_BASE comes from stats-config.js. Every call here is
+// best-effort: a missing/unreachable backend never blocks or breaks
+// gameplay, it just leaves streaks/counts unavailable.
+
+const PLAYER_ID_KEY = "craftable-player-id";
+
+function getPlayerId() {
+  try {
+    let id = localStorage.getItem(PLAYER_ID_KEY);
+    if (!id) {
+      id = (crypto.randomUUID ? crypto.randomUUID() : `p-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+      localStorage.setItem(PLAYER_ID_KEY, id);
+    }
+    return id;
+  } catch (e) {
+    return null; // storage unavailable — stats just won't work this session
+  }
+}
+
+function statsEnabled() {
+  return typeof STATS_API_BASE === "string" && STATS_API_BASE.length > 0 && getPlayerId() !== null;
+}
+
+// Fire-and-forget: only called once per completed Daily-mode round.
+// Random mode never calls this — streaks are a daily-puzzle concept.
+async function recordDailyResult(won) {
+  if (!statsEnabled()) return;
+  try {
+    await fetch(`${STATS_API_BASE}/result`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ playerId: getPlayerId(), date: getLocalDateString(), won }),
+    });
+    refreshTodayCount();
+  } catch (e) {
+    console.warn("Could not record result:", e);
+  }
+}
+
+async function refreshTodayCount() {
+  const el = $("today-count");
+  if (!statsEnabled() || state.mode !== "daily") {
+    el.classList.add("hidden");
+    return;
+  }
+  try {
+    const res = await fetch(`${STATS_API_BASE}/today-count?date=${getLocalDateString()}`);
+    const data = await res.json();
+    el.textContent = `🔥 ${data.count} player${data.count === 1 ? "" : "s"} completed today's puzzle`;
+    el.classList.remove("hidden");
+  } catch (e) {
+    el.classList.add("hidden");
+  }
+}
+
+async function openStatsModal() {
+  $("stats-modal").classList.remove("hidden");
+
+  if (!statsEnabled()) {
+    $("stats-grid").classList.add("hidden");
+    $("stats-unavailable").classList.remove("hidden");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${STATS_API_BASE}/stats?playerId=${getPlayerId()}`);
+    if (!res.ok) throw new Error("bad response");
+    const s = await res.json();
+
+    $("stat-current-streak").textContent = s.currentStreak;
+    $("stat-max-streak").textContent     = s.maxStreak;
+    $("stat-played").textContent         = s.totalPlayed;
+    $("stat-win-rate").textContent       = s.totalPlayed > 0
+      ? `${Math.round((s.totalWon / s.totalPlayed) * 100)}%`
+      : "–";
+
+    $("stats-grid").classList.remove("hidden");
+    $("stats-unavailable").classList.add("hidden");
+  } catch (e) {
+    $("stats-grid").classList.add("hidden");
+    $("stats-unavailable").classList.remove("hidden");
+  }
 }
 
 // ── Boot ────────────────────────────────────────────────────

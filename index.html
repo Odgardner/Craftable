@@ -29,7 +29,10 @@
         </div>
         <p class="tagline">Guess the Minecraft crafting recipe</p>
       </div>
-      <button id="help-btn" class="icon-btn" title="How to play">?</button>
+      <div class="header-btns">
+        <button id="stats-btn" class="icon-btn" title="Your stats">🔥</button>
+        <button id="help-btn" class="icon-btn" title="How to play">?</button>
+      </div>
     </header>
 
     <!-- ── Mode selector ──────────────────────────── -->
@@ -39,6 +42,38 @@
         <button class="mode-btn" id="mode-random-btn" data-mode="random" role="tab" aria-selected="false">Random</button>
       </div>
       <button class="new-puzzle-btn hidden" id="new-puzzle-btn">New Puzzle</button>
+    </div>
+
+    <p class="today-count hidden" id="today-count"></p>
+
+    <!-- ── Stats Modal ───────────────────────────────── -->
+    <div id="stats-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-box">
+        <button class="modal-close" id="stats-close-btn" aria-label="Close">✕</button>
+        <div class="modal-scroll">
+          <h2>Your Stats</h2>
+          <p id="stats-unavailable" class="hidden">Stats aren't available right now — the game itself works fine, this just couldn't reach the stats service.</p>
+          <div class="stats-grid" id="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value" id="stat-current-streak">–</div>
+              <div class="stat-label">Current Streak</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="stat-max-streak">–</div>
+              <div class="stat-label">Max Streak</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="stat-played">–</div>
+              <div class="stat-label">Played</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="stat-win-rate">–</div>
+              <div class="stat-label">Win Rate</div>
+            </div>
+          </div>
+          <p class="stats-note">Streaks only track <strong>Daily</strong> mode — Random doesn't count toward or break them.</p>
+        </div>
+      </div>
     </div>
 
     <!-- ── Help Modal ──────────────────────────────── -->
@@ -73,7 +108,7 @@
           <p>Once an item scores green, yellow, or grey in a guess, its slot in the Inventory keeps that colour for the rest of the round — so you don't have to scroll back through past guesses to remember what you've already ruled out.</p>
 
           <h3>Daily vs. Random</h3>
-          <p>In <strong>Daily</strong> mode, everyone gets the same recipe, which unlocks at <strong>midnight in your own timezone</strong> — same as Wordle. Switch to <strong>Random</strong> for unlimited practice: hit <strong>New Puzzle</strong> any time for a fresh, randomly picked recipe.</p>
+          <p>In <strong>Daily</strong> mode, everyone gets the same recipe, which unlocks at <strong>midnight in your own timezone</strong> — same as Wordle. Switch to <strong>Random</strong> for unlimited practice: hit <strong>New Puzzle</strong> any time for a fresh, randomly picked recipe. The 🔥 button (when available) shows your Daily win streak — Random results don't count toward it.</p>
         </div>
       </div>
     </div>
@@ -168,6 +203,7 @@
 
   </div><!-- /#app -->
 
+  <script src="stats-config.js"></script>
   <script src="recipes-data.js"></script>
 <script src="script.js"></script>
 </body>
