@@ -96,6 +96,18 @@ const RESULT_EMOJIS = {
   "Jukebox":            "🎵",
   "Note Block":         "🎵",
   "Cauldron":           "🍯",
+  "Golden Axe":         "🪓",
+  "Iron Shovel":        "⛏",
+  "Golden Shovel":      "⛏",
+  "Diamond Shovel":     "⛏",
+  "Iron Hoe":           "🌾",
+  "Golden Hoe":         "🌾",
+  "Diamond Hoe":        "🌾",
+  "Cobblestone Slab":   "🧱",
+  "Stone Slab":         "🧱",
+  "Oak Slab":           "🪵",
+  "Oak Button":         "🔘",
+  "Stone Button":       "🔘",
 };
 
 // Every icon in the game — ingredients and crafting results alike —

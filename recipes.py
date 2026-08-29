@@ -726,6 +726,126 @@ RECIPES = [
             "iron", "iron",  "iron",
         ],
     },
+    {
+        "id": 68,
+        "result": "Golden Axe",
+        "result_desc": "Chops wood fast, but not durable.",
+        "grid": [
+            "gold", "gold",  "air",
+            "gold", "stick", "air",
+            "air",  "stick", "air",
+        ],
+    },
+    {
+        "id": 69,
+        "result": "Iron Shovel",
+        "result_desc": "Digs dirt, sand, and gravel.",
+        "grid": [
+            "air", "iron",  "air",
+            "air", "stick", "air",
+            "air", "stick", "air",
+        ],
+    },
+    {
+        "id": 70,
+        "result": "Golden Shovel",
+        "result_desc": "Digs fast, breaks fast.",
+        "grid": [
+            "air", "gold",  "air",
+            "air", "stick", "air",
+            "air", "stick", "air",
+        ],
+    },
+    {
+        "id": 71,
+        "result": "Diamond Shovel",
+        "result_desc": "The best digging tool there is.",
+        "grid": [
+            "air", "diamond", "air",
+            "air", "stick",   "air",
+            "air", "stick",   "air",
+        ],
+    },
+    {
+        "id": 72,
+        "result": "Iron Hoe",
+        "result_desc": "Tills soil for farming.",
+        "grid": [
+            "iron", "iron",  "air",
+            "air",  "stick", "air",
+            "air",  "stick", "air",
+        ],
+    },
+    {
+        "id": 73,
+        "result": "Golden Hoe",
+        "result_desc": "Tills soil, fast but fragile.",
+        "grid": [
+            "gold", "gold",  "air",
+            "air",  "stick", "air",
+            "air",  "stick", "air",
+        ],
+    },
+    {
+        "id": 74,
+        "result": "Diamond Hoe",
+        "result_desc": "The fastest hoe available.",
+        "grid": [
+            "diamond", "diamond", "air",
+            "air",     "stick",   "air",
+            "air",     "stick",   "air",
+        ],
+    },
+    {
+        "id": 75,
+        "result": "Cobblestone Slab",
+        "result_desc": "Half a block of cobblestone.",
+        "grid": [
+            "air",    "air",    "air",
+            "air",    "air",    "air",
+            "cobble", "cobble", "cobble",
+        ],
+    },
+    {
+        "id": 76,
+        "result": "Stone Slab",
+        "result_desc": "Half a block of stone.",
+        "grid": [
+            "air",   "air",   "air",
+            "air",   "air",   "air",
+            "stone", "stone", "stone",
+        ],
+    },
+    {
+        "id": 77,
+        "result": "Oak Slab",
+        "result_desc": "Half a block of oak planks.",
+        "grid": [
+            "air",        "air",        "air",
+            "air",        "air",        "air",
+            "oak_planks", "oak_planks", "oak_planks",
+        ],
+    },
+    {
+        "id": 78,
+        "result": "Oak Button",
+        "result_desc": "A simple wooden switch.",
+        "grid": [
+            "air", "air",         "air",
+            "air", "oak_planks",  "air",
+            "air", "air",         "air",
+        ],
+    },
+    {
+        "id": 79,
+        "result": "Stone Button",
+        "result_desc": "A simple stone switch.",
+        "grid": [
+            "air", "air",   "air",
+            "air", "stone", "air",
+            "air", "air",   "air",
+        ],
+    },
 ]
 
 # Guardrail: two recipes sharing an identical grid would be genuinely
