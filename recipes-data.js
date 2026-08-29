@@ -205,70 +205,6 @@ const RECIPES = [
   },
   {
     "id": 4,
-    "result": "Wooden Pickaxe",
-    "result_desc": "Used to mine stone and coal.",
-    "grid": [
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 5,
-    "result": "Stone Pickaxe",
-    "result_desc": "Used to mine iron and gold.",
-    "grid": [
-      "cobble",
-      "cobble",
-      "cobble",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 6,
-    "result": "Iron Pickaxe",
-    "result_desc": "Used to mine diamonds and redstone.",
-    "grid": [
-      "iron",
-      "iron",
-      "iron",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 7,
-    "result": "Diamond Pickaxe",
-    "result_desc": "The best pickaxe for mining.",
-    "grid": [
-      "diamond",
-      "diamond",
-      "diamond",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 8,
     "result": "Furnace",
     "result_desc": "Used to smelt ores and cook food.",
     "grid": [
@@ -284,151 +220,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 9,
-    "result": "Wooden Sword",
-    "result_desc": "Your first weapon against mobs.",
-    "grid": [
-      "air",
-      "oak_planks",
-      "air",
-      "air",
-      "oak_planks",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 10,
-    "result": "Stone Sword",
-    "result_desc": "A stronger sword for combat.",
-    "grid": [
-      "air",
-      "cobble",
-      "air",
-      "air",
-      "cobble",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 11,
-    "result": "Iron Sword",
-    "result_desc": "A reliable combat weapon.",
-    "grid": [
-      "air",
-      "iron",
-      "air",
-      "air",
-      "iron",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 12,
-    "result": "Bow",
-    "result_desc": "Shoots arrows at enemies from range.",
-    "grid": [
-      "air",
-      "stick",
-      "string",
-      "stick",
-      "air",
-      "string",
-      "air",
-      "stick",
-      "string"
-    ]
-  },
-  {
-    "id": 13,
-    "result": "Arrow",
-    "result_desc": "Ammunition for the bow.",
-    "grid": [
-      "air",
-      "flint",
-      "air",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "feather",
-      "air"
-    ]
-  },
-  {
-    "id": 14,
-    "result": "Bread",
-    "result_desc": "Restores 5 hunger points.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "wheat",
-      "wheat",
-      "wheat",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 15,
-    "result": "Wooden Axe",
-    "result_desc": "Chops wood faster than by hand.",
-    "grid": [
-      "oak_planks",
-      "oak_planks",
-      "air",
-      "oak_planks",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 16,
-    "result": "Iron Helmet",
-    "result_desc": "Provides head protection.",
-    "grid": [
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "air",
-      "iron",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 17,
-    "result": "Leather Boots",
-    "result_desc": "Basic foot protection.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "leather",
-      "air",
-      "leather",
-      "leather",
-      "air",
-      "leather"
-    ]
-  },
-  {
-    "id": 18,
+    "id": 5,
     "result": "Ladder",
     "result_desc": "Climbable surface for vertical travel.",
     "grid": [
@@ -444,31 +236,239 @@ const RECIPES = [
     ]
   },
   {
-    "id": 19,
-    "result": "Clock",
-    "result_desc": "Shows the time of day.",
+    "id": 6,
+    "result": "Bread",
+    "result_desc": "Restores 5 hunger points.",
     "grid": [
       "air",
-      "gold",
       "air",
-      "gold",
-      "redstone",
-      "gold",
       "air",
-      "gold",
+      "wheat",
+      "wheat",
+      "wheat",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 7,
+    "result": "Bucket",
+    "result_desc": "Carries water, lava, or milk.",
+    "grid": [
+      "iron",
+      "air",
+      "iron",
+      "air",
+      "iron",
+      "air",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 8,
+    "result": "Fishing Rod",
+    "result_desc": "Catch fish, or fish for mobs.",
+    "grid": [
+      "air",
+      "air",
+      "stick",
+      "air",
+      "stick",
+      "string",
+      "stick",
+      "air",
+      "string"
+    ]
+  },
+  {
+    "id": 9,
+    "result": "Flint and Steel",
+    "result_desc": "Sets blocks \u2014 and things \u2014 on fire.",
+    "grid": [
+      "iron",
+      "air",
+      "air",
+      "air",
+      "flint",
+      "air",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 10,
+    "result": "Shears",
+    "result_desc": "Shears sheep and harvests leaves.",
+    "grid": [
+      "air",
+      "iron",
+      "air",
+      "iron",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 11,
+    "result": "Wooden Pickaxe",
+    "result_desc": "Used to mine stone and coal.",
+    "grid": [
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 12,
+    "result": "Wooden Sword",
+    "result_desc": "Your first weapon against mobs.",
+    "grid": [
+      "air",
+      "oak_planks",
+      "air",
+      "air",
+      "oak_planks",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 13,
+    "result": "Wooden Axe",
+    "result_desc": "Chops wood faster than by hand.",
+    "grid": [
+      "oak_planks",
+      "oak_planks",
+      "air",
+      "oak_planks",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 14,
+    "result": "Stone Pickaxe",
+    "result_desc": "Used to mine iron and gold.",
+    "grid": [
+      "cobble",
+      "cobble",
+      "cobble",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 15,
+    "result": "Stone Sword",
+    "result_desc": "A stronger sword for combat.",
+    "grid": [
+      "air",
+      "cobble",
+      "air",
+      "air",
+      "cobble",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 16,
+    "result": "Iron Pickaxe",
+    "result_desc": "Used to mine diamonds and redstone.",
+    "grid": [
+      "iron",
+      "iron",
+      "iron",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 17,
+    "result": "Iron Sword",
+    "result_desc": "A reliable combat weapon.",
+    "grid": [
+      "air",
+      "iron",
+      "air",
+      "air",
+      "iron",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 18,
+    "result": "Iron Axe",
+    "result_desc": "Chops wood faster than stone.",
+    "grid": [
+      "iron",
+      "iron",
+      "air",
+      "iron",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 19,
+    "result": "Iron Shovel",
+    "result_desc": "Digs dirt, sand, and gravel.",
+    "grid": [
+      "air",
+      "iron",
+      "air",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "stick",
       "air"
     ]
   },
   {
     "id": 20,
-    "result": "Redstone Torch",
-    "result_desc": "A redstone power source.",
+    "result": "Iron Hoe",
+    "result_desc": "Tills soil for farming.",
     "grid": [
+      "iron",
+      "iron",
       "air",
       "air",
-      "air",
-      "air",
-      "redstone",
+      "stick",
       "air",
       "air",
       "stick",
@@ -477,14 +477,14 @@ const RECIPES = [
   },
   {
     "id": 21,
-    "result": "Diamond Sword",
-    "result_desc": "The strongest handheld weapon.",
+    "result": "Golden Pickaxe",
+    "result_desc": "Mines fast, breaks fast.",
     "grid": [
+      "gold",
+      "gold",
+      "gold",
       "air",
-      "diamond",
-      "air",
-      "air",
-      "diamond",
+      "stick",
       "air",
       "air",
       "stick",
@@ -509,726 +509,6 @@ const RECIPES = [
   },
   {
     "id": 23,
-    "result": "Golden Pickaxe",
-    "result_desc": "Mines fast, breaks fast.",
-    "grid": [
-      "gold",
-      "gold",
-      "gold",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 24,
-    "result": "Iron Axe",
-    "result_desc": "Chops wood faster than stone.",
-    "grid": [
-      "iron",
-      "iron",
-      "air",
-      "iron",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 25,
-    "result": "Diamond Axe",
-    "result_desc": "The fastest axe there is.",
-    "grid": [
-      "diamond",
-      "diamond",
-      "air",
-      "diamond",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 26,
-    "result": "Shears",
-    "result_desc": "Shears sheep and harvests leaves.",
-    "grid": [
-      "air",
-      "iron",
-      "air",
-      "iron",
-      "air",
-      "air",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 27,
-    "result": "Iron Boots",
-    "result_desc": "Sturdy foot protection.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "iron",
-      "air",
-      "iron",
-      "iron",
-      "air",
-      "iron"
-    ]
-  },
-  {
-    "id": 28,
-    "result": "Diamond Chestplate",
-    "result_desc": "The best chest armor around.",
-    "grid": [
-      "diamond",
-      "air",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond"
-    ]
-  },
-  {
-    "id": 29,
-    "result": "Fishing Rod",
-    "result_desc": "Catch fish, or fish for mobs.",
-    "grid": [
-      "air",
-      "air",
-      "stick",
-      "air",
-      "stick",
-      "string",
-      "stick",
-      "air",
-      "string"
-    ]
-  },
-  {
-    "id": 30,
-    "result": "Shield",
-    "result_desc": "Blocks attacks when raised.",
-    "grid": [
-      "air",
-      "iron",
-      "air",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "air",
-      "oak_planks",
-      "air"
-    ]
-  },
-  {
-    "id": 31,
-    "result": "Compass",
-    "result_desc": "Always points to your spawn.",
-    "grid": [
-      "air",
-      "iron",
-      "air",
-      "iron",
-      "redstone",
-      "iron",
-      "air",
-      "iron",
-      "air"
-    ]
-  },
-  {
-    "id": 32,
-    "result": "Flint and Steel",
-    "result_desc": "Sets blocks \u2014 and things \u2014 on fire.",
-    "grid": [
-      "iron",
-      "air",
-      "air",
-      "air",
-      "flint",
-      "air",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 33,
-    "result": "Rail",
-    "result_desc": "Lays track for minecarts.",
-    "grid": [
-      "iron",
-      "air",
-      "iron",
-      "iron",
-      "stick",
-      "iron",
-      "iron",
-      "air",
-      "iron"
-    ]
-  },
-  {
-    "id": 34,
-    "result": "Powered Rail",
-    "result_desc": "Boosts (or brakes) a minecart.",
-    "grid": [
-      "gold",
-      "air",
-      "gold",
-      "gold",
-      "stick",
-      "gold",
-      "gold",
-      "redstone",
-      "gold"
-    ]
-  },
-  {
-    "id": 35,
-    "result": "Sign",
-    "result_desc": "Leaves a message for later.",
-    "grid": [
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 36,
-    "result": "Boat",
-    "result_desc": "Sails across water.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "oak_planks",
-      "air",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks"
-    ]
-  },
-  {
-    "id": 37,
-    "result": "Piston",
-    "result_desc": "Pushes blocks when powered.",
-    "grid": [
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "cobble",
-      "iron",
-      "cobble",
-      "cobble",
-      "redstone",
-      "cobble"
-    ]
-  },
-  {
-    "id": 38,
-    "result": "Bucket",
-    "result_desc": "Carries water, lava, or milk.",
-    "grid": [
-      "iron",
-      "air",
-      "iron",
-      "air",
-      "iron",
-      "air",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 39,
-    "result": "Painting",
-    "result_desc": "Decorates a wall.",
-    "grid": [
-      "stick",
-      "stick",
-      "stick",
-      "stick",
-      "wool",
-      "stick",
-      "stick",
-      "stick",
-      "stick"
-    ]
-  },
-  {
-    "id": 40,
-    "result": "Item Frame",
-    "result_desc": "Displays a single item on a wall.",
-    "grid": [
-      "stick",
-      "stick",
-      "stick",
-      "stick",
-      "leather",
-      "stick",
-      "stick",
-      "stick",
-      "stick"
-    ]
-  },
-  {
-    "id": 41,
-    "result": "Bed",
-    "result_desc": "Skip the night \u2014 or reset your spawn.",
-    "grid": [
-      "wool",
-      "wool",
-      "wool",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 42,
-    "result": "TNT",
-    "result_desc": "Explosive. Handle with care.",
-    "grid": [
-      "gunpowder",
-      "sand",
-      "gunpowder",
-      "sand",
-      "gunpowder",
-      "sand",
-      "gunpowder",
-      "sand",
-      "gunpowder"
-    ]
-  },
-  {
-    "id": 43,
-    "result": "Stone Bricks",
-    "result_desc": "A sturdy building block.",
-    "grid": [
-      "stone",
-      "stone",
-      "air",
-      "stone",
-      "stone",
-      "air",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 44,
-    "result": "Stonecutter",
-    "result_desc": "Cuts stone into precise shapes.",
-    "grid": [
-      "air",
-      "iron",
-      "air",
-      "stone",
-      "stone",
-      "stone",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 45,
-    "result": "Stone Pressure Plate",
-    "result_desc": "Triggers when stepped on.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "stone",
-      "stone",
-      "air",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 46,
-    "result": "Quartz Block",
-    "result_desc": "A smooth, decorative building block.",
-    "grid": [
-      "quartz",
-      "quartz",
-      "air",
-      "quartz",
-      "quartz",
-      "air",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 47,
-    "result": "Leather Leggings",
-    "result_desc": "Basic leg protection.",
-    "grid": [
-      "leather",
-      "leather",
-      "leather",
-      "leather",
-      "air",
-      "leather",
-      "leather",
-      "air",
-      "leather"
-    ]
-  },
-  {
-    "id": 48,
-    "result": "Iron Leggings",
-    "result_desc": "Solid leg protection.",
-    "grid": [
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "air",
-      "iron",
-      "iron",
-      "air",
-      "iron"
-    ]
-  },
-  {
-    "id": 49,
-    "result": "Golden Leggings",
-    "result_desc": "Stylish, if not very tough.",
-    "grid": [
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "air",
-      "gold",
-      "gold",
-      "air",
-      "gold"
-    ]
-  },
-  {
-    "id": 50,
-    "result": "Diamond Leggings",
-    "result_desc": "Excellent leg protection.",
-    "grid": [
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "air",
-      "diamond",
-      "diamond",
-      "air",
-      "diamond"
-    ]
-  },
-  {
-    "id": 51,
-    "result": "Leather Helmet",
-    "result_desc": "Basic head protection.",
-    "grid": [
-      "leather",
-      "leather",
-      "leather",
-      "leather",
-      "air",
-      "leather",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 52,
-    "result": "Golden Helmet",
-    "result_desc": "Shiny, if not very tough.",
-    "grid": [
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "air",
-      "gold",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 53,
-    "result": "Diamond Helmet",
-    "result_desc": "Excellent head protection.",
-    "grid": [
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "air",
-      "diamond",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 54,
-    "result": "Leather Chestplate",
-    "result_desc": "Basic chest protection.",
-    "grid": [
-      "leather",
-      "air",
-      "leather",
-      "leather",
-      "leather",
-      "leather",
-      "leather",
-      "leather",
-      "leather"
-    ]
-  },
-  {
-    "id": 55,
-    "result": "Iron Chestplate",
-    "result_desc": "Solid chest protection.",
-    "grid": [
-      "iron",
-      "air",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron"
-    ]
-  },
-  {
-    "id": 56,
-    "result": "Golden Chestplate",
-    "result_desc": "Stylish, if not very tough.",
-    "grid": [
-      "gold",
-      "air",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold"
-    ]
-  },
-  {
-    "id": 57,
-    "result": "Golden Boots",
-    "result_desc": "Stylish, if not very tough.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "gold",
-      "air",
-      "gold",
-      "gold",
-      "air",
-      "gold"
-    ]
-  },
-  {
-    "id": 58,
-    "result": "Diamond Boots",
-    "result_desc": "Excellent foot protection.",
-    "grid": [
-      "air",
-      "air",
-      "air",
-      "diamond",
-      "air",
-      "diamond",
-      "diamond",
-      "air",
-      "diamond"
-    ]
-  },
-  {
-    "id": 59,
-    "result": "Iron Block",
-    "result_desc": "Nine iron ingots, compressed.",
-    "grid": [
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron",
-      "iron"
-    ]
-  },
-  {
-    "id": 60,
-    "result": "Gold Block",
-    "result_desc": "Nine gold ingots, compressed.",
-    "grid": [
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold",
-      "gold"
-    ]
-  },
-  {
-    "id": 61,
-    "result": "Diamond Block",
-    "result_desc": "Nine diamonds, compressed.",
-    "grid": [
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond",
-      "diamond"
-    ]
-  },
-  {
-    "id": 62,
-    "result": "Coal Block",
-    "result_desc": "Nine coal, compressed. Burns for a very long time.",
-    "grid": [
-      "coal",
-      "coal",
-      "coal",
-      "coal",
-      "coal",
-      "coal",
-      "coal",
-      "coal",
-      "coal"
-    ]
-  },
-  {
-    "id": 63,
-    "result": "Redstone Block",
-    "result_desc": "Nine redstone dust, compressed. Always powered.",
-    "grid": [
-      "redstone",
-      "redstone",
-      "redstone",
-      "redstone",
-      "redstone",
-      "redstone",
-      "redstone",
-      "redstone",
-      "redstone"
-    ]
-  },
-  {
-    "id": 64,
-    "result": "Cobblestone Wall",
-    "result_desc": "Keeps mobs out of your base.",
-    "grid": [
-      "cobble",
-      "cobble",
-      "cobble",
-      "cobble",
-      "cobble",
-      "cobble",
-      "air",
-      "air",
-      "air"
-    ]
-  },
-  {
-    "id": 65,
-    "result": "Jukebox",
-    "result_desc": "Plays music discs.",
-    "grid": [
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "diamond",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks"
-    ]
-  },
-  {
-    "id": 66,
-    "result": "Note Block",
-    "result_desc": "Plays a note when powered.",
-    "grid": [
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "redstone",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks",
-      "oak_planks"
-    ]
-  },
-  {
-    "id": 67,
-    "result": "Cauldron",
-    "result_desc": "Holds water, lava, or potions.",
-    "grid": [
-      "iron",
-      "air",
-      "iron",
-      "iron",
-      "air",
-      "iron",
-      "iron",
-      "iron",
-      "iron"
-    ]
-  },
-  {
-    "id": 68,
     "result": "Golden Axe",
     "result_desc": "Chops wood fast, but not durable.",
     "grid": [
@@ -1244,23 +524,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 69,
-    "result": "Iron Shovel",
-    "result_desc": "Digs dirt, sand, and gravel.",
-    "grid": [
-      "air",
-      "iron",
-      "air",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 70,
+    "id": 24,
     "result": "Golden Shovel",
     "result_desc": "Digs fast, breaks fast.",
     "grid": [
@@ -1276,39 +540,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 71,
-    "result": "Diamond Shovel",
-    "result_desc": "The best digging tool there is.",
-    "grid": [
-      "air",
-      "diamond",
-      "air",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 72,
-    "result": "Iron Hoe",
-    "result_desc": "Tills soil for farming.",
-    "grid": [
-      "iron",
-      "iron",
-      "air",
-      "air",
-      "stick",
-      "air",
-      "air",
-      "stick",
-      "air"
-    ]
-  },
-  {
-    "id": 73,
+    "id": 25,
     "result": "Golden Hoe",
     "result_desc": "Tills soil, fast but fragile.",
     "grid": [
@@ -1324,7 +556,71 @@ const RECIPES = [
     ]
   },
   {
-    "id": 74,
+    "id": 26,
+    "result": "Diamond Pickaxe",
+    "result_desc": "The best pickaxe for mining.",
+    "grid": [
+      "diamond",
+      "diamond",
+      "diamond",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 27,
+    "result": "Diamond Sword",
+    "result_desc": "The strongest handheld weapon.",
+    "grid": [
+      "air",
+      "diamond",
+      "air",
+      "air",
+      "diamond",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 28,
+    "result": "Diamond Axe",
+    "result_desc": "The fastest axe there is.",
+    "grid": [
+      "diamond",
+      "diamond",
+      "air",
+      "diamond",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 29,
+    "result": "Diamond Shovel",
+    "result_desc": "The best digging tool there is.",
+    "grid": [
+      "air",
+      "diamond",
+      "air",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 30,
     "result": "Diamond Hoe",
     "result_desc": "The fastest hoe available.",
     "grid": [
@@ -1340,7 +636,583 @@ const RECIPES = [
     ]
   },
   {
-    "id": 75,
+    "id": 31,
+    "result": "Leather Helmet",
+    "result_desc": "Basic head protection.",
+    "grid": [
+      "leather",
+      "leather",
+      "leather",
+      "leather",
+      "air",
+      "leather",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 32,
+    "result": "Leather Chestplate",
+    "result_desc": "Basic chest protection.",
+    "grid": [
+      "leather",
+      "air",
+      "leather",
+      "leather",
+      "leather",
+      "leather",
+      "leather",
+      "leather",
+      "leather"
+    ]
+  },
+  {
+    "id": 33,
+    "result": "Leather Leggings",
+    "result_desc": "Basic leg protection.",
+    "grid": [
+      "leather",
+      "leather",
+      "leather",
+      "leather",
+      "air",
+      "leather",
+      "leather",
+      "air",
+      "leather"
+    ]
+  },
+  {
+    "id": 34,
+    "result": "Leather Boots",
+    "result_desc": "Basic foot protection.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "leather",
+      "air",
+      "leather",
+      "leather",
+      "air",
+      "leather"
+    ]
+  },
+  {
+    "id": 35,
+    "result": "Iron Helmet",
+    "result_desc": "Provides head protection.",
+    "grid": [
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "air",
+      "iron",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 36,
+    "result": "Iron Chestplate",
+    "result_desc": "Solid chest protection.",
+    "grid": [
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron"
+    ]
+  },
+  {
+    "id": 37,
+    "result": "Iron Leggings",
+    "result_desc": "Solid leg protection.",
+    "grid": [
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "air",
+      "iron"
+    ]
+  },
+  {
+    "id": 38,
+    "result": "Iron Boots",
+    "result_desc": "Sturdy foot protection.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "air",
+      "iron"
+    ]
+  },
+  {
+    "id": 39,
+    "result": "Golden Helmet",
+    "result_desc": "Shiny, if not very tough.",
+    "grid": [
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "air",
+      "gold",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 40,
+    "result": "Golden Chestplate",
+    "result_desc": "Stylish, if not very tough.",
+    "grid": [
+      "gold",
+      "air",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold"
+    ]
+  },
+  {
+    "id": 41,
+    "result": "Golden Leggings",
+    "result_desc": "Stylish, if not very tough.",
+    "grid": [
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "air",
+      "gold",
+      "gold",
+      "air",
+      "gold"
+    ]
+  },
+  {
+    "id": 42,
+    "result": "Golden Boots",
+    "result_desc": "Stylish, if not very tough.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "gold",
+      "air",
+      "gold",
+      "gold",
+      "air",
+      "gold"
+    ]
+  },
+  {
+    "id": 43,
+    "result": "Diamond Helmet",
+    "result_desc": "Excellent head protection.",
+    "grid": [
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "air",
+      "diamond",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 44,
+    "result": "Diamond Chestplate",
+    "result_desc": "The best chest armor around.",
+    "grid": [
+      "diamond",
+      "air",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond"
+    ]
+  },
+  {
+    "id": 45,
+    "result": "Diamond Leggings",
+    "result_desc": "Excellent leg protection.",
+    "grid": [
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "air",
+      "diamond",
+      "diamond",
+      "air",
+      "diamond"
+    ]
+  },
+  {
+    "id": 46,
+    "result": "Diamond Boots",
+    "result_desc": "Excellent foot protection.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "diamond",
+      "air",
+      "diamond",
+      "diamond",
+      "air",
+      "diamond"
+    ]
+  },
+  {
+    "id": 47,
+    "result": "Bow",
+    "result_desc": "Shoots arrows at enemies from range.",
+    "grid": [
+      "air",
+      "stick",
+      "string",
+      "stick",
+      "air",
+      "string",
+      "air",
+      "stick",
+      "string"
+    ]
+  },
+  {
+    "id": 48,
+    "result": "Arrow",
+    "result_desc": "Ammunition for the bow.",
+    "grid": [
+      "air",
+      "flint",
+      "air",
+      "air",
+      "stick",
+      "air",
+      "air",
+      "feather",
+      "air"
+    ]
+  },
+  {
+    "id": 49,
+    "result": "Shield",
+    "result_desc": "Blocks attacks when raised.",
+    "grid": [
+      "air",
+      "iron",
+      "air",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "air",
+      "oak_planks",
+      "air"
+    ]
+  },
+  {
+    "id": 50,
+    "result": "Clock",
+    "result_desc": "Shows the time of day.",
+    "grid": [
+      "air",
+      "gold",
+      "air",
+      "gold",
+      "redstone",
+      "gold",
+      "air",
+      "gold",
+      "air"
+    ]
+  },
+  {
+    "id": 51,
+    "result": "Redstone Torch",
+    "result_desc": "A redstone power source.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "air",
+      "redstone",
+      "air",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 52,
+    "result": "Compass",
+    "result_desc": "Always points to your spawn.",
+    "grid": [
+      "air",
+      "iron",
+      "air",
+      "iron",
+      "redstone",
+      "iron",
+      "air",
+      "iron",
+      "air"
+    ]
+  },
+  {
+    "id": 53,
+    "result": "Piston",
+    "result_desc": "Pushes blocks when powered.",
+    "grid": [
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "cobble",
+      "iron",
+      "cobble",
+      "cobble",
+      "redstone",
+      "cobble"
+    ]
+  },
+  {
+    "id": 54,
+    "result": "Rail",
+    "result_desc": "Lays track for minecarts.",
+    "grid": [
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "stick",
+      "iron",
+      "iron",
+      "air",
+      "iron"
+    ]
+  },
+  {
+    "id": 55,
+    "result": "Powered Rail",
+    "result_desc": "Boosts (or brakes) a minecart.",
+    "grid": [
+      "gold",
+      "air",
+      "gold",
+      "gold",
+      "stick",
+      "gold",
+      "gold",
+      "redstone",
+      "gold"
+    ]
+  },
+  {
+    "id": 56,
+    "result": "Note Block",
+    "result_desc": "Plays a note when powered.",
+    "grid": [
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "redstone",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks"
+    ]
+  },
+  {
+    "id": 57,
+    "result": "Iron Block",
+    "result_desc": "Nine iron ingots, compressed.",
+    "grid": [
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron",
+      "iron"
+    ]
+  },
+  {
+    "id": 58,
+    "result": "Gold Block",
+    "result_desc": "Nine gold ingots, compressed.",
+    "grid": [
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold",
+      "gold"
+    ]
+  },
+  {
+    "id": 59,
+    "result": "Diamond Block",
+    "result_desc": "Nine diamonds, compressed.",
+    "grid": [
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond",
+      "diamond"
+    ]
+  },
+  {
+    "id": 60,
+    "result": "Coal Block",
+    "result_desc": "Nine coal, compressed. Burns for a very long time.",
+    "grid": [
+      "coal",
+      "coal",
+      "coal",
+      "coal",
+      "coal",
+      "coal",
+      "coal",
+      "coal",
+      "coal"
+    ]
+  },
+  {
+    "id": 61,
+    "result": "Redstone Block",
+    "result_desc": "Nine redstone dust, compressed. Always powered.",
+    "grid": [
+      "redstone",
+      "redstone",
+      "redstone",
+      "redstone",
+      "redstone",
+      "redstone",
+      "redstone",
+      "redstone",
+      "redstone"
+    ]
+  },
+  {
+    "id": 62,
+    "result": "Stone Bricks",
+    "result_desc": "A sturdy building block.",
+    "grid": [
+      "stone",
+      "stone",
+      "air",
+      "stone",
+      "stone",
+      "air",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 63,
+    "result": "Stonecutter",
+    "result_desc": "Cuts stone into precise shapes.",
+    "grid": [
+      "air",
+      "iron",
+      "air",
+      "stone",
+      "stone",
+      "stone",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 64,
+    "result": "Stone Pressure Plate",
+    "result_desc": "Triggers when stepped on.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "stone",
+      "stone",
+      "air",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 65,
+    "result": "Quartz Block",
+    "result_desc": "A smooth, decorative building block.",
+    "grid": [
+      "quartz",
+      "quartz",
+      "air",
+      "quartz",
+      "quartz",
+      "air",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 66,
+    "result": "Cobblestone Wall",
+    "result_desc": "Keeps mobs out of your base.",
+    "grid": [
+      "cobble",
+      "cobble",
+      "cobble",
+      "cobble",
+      "cobble",
+      "cobble",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 67,
     "result": "Cobblestone Slab",
     "result_desc": "Half a block of cobblestone.",
     "grid": [
@@ -1356,7 +1228,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 76,
+    "id": 68,
     "result": "Stone Slab",
     "result_desc": "Half a block of stone.",
     "grid": [
@@ -1372,7 +1244,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 77,
+    "id": 69,
     "result": "Oak Slab",
     "result_desc": "Half a block of oak planks.",
     "grid": [
@@ -1388,7 +1260,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 78,
+    "id": 70,
     "result": "Oak Button",
     "result_desc": "A simple wooden switch.",
     "grid": [
@@ -1404,7 +1276,7 @@ const RECIPES = [
     ]
   },
   {
-    "id": 79,
+    "id": 71,
     "result": "Stone Button",
     "result_desc": "A simple stone switch.",
     "grid": [
@@ -1417,6 +1289,134 @@ const RECIPES = [
       "air",
       "air",
       "air"
+    ]
+  },
+  {
+    "id": 72,
+    "result": "Sign",
+    "result_desc": "Leaves a message for later.",
+    "grid": [
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "air",
+      "stick",
+      "air"
+    ]
+  },
+  {
+    "id": 73,
+    "result": "Boat",
+    "result_desc": "Sails across water.",
+    "grid": [
+      "air",
+      "air",
+      "air",
+      "oak_planks",
+      "air",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks"
+    ]
+  },
+  {
+    "id": 74,
+    "result": "Bed",
+    "result_desc": "Skip the night \u2014 or reset your spawn.",
+    "grid": [
+      "wool",
+      "wool",
+      "wool",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "air",
+      "air",
+      "air"
+    ]
+  },
+  {
+    "id": 75,
+    "result": "Painting",
+    "result_desc": "Decorates a wall.",
+    "grid": [
+      "stick",
+      "stick",
+      "stick",
+      "stick",
+      "wool",
+      "stick",
+      "stick",
+      "stick",
+      "stick"
+    ]
+  },
+  {
+    "id": 76,
+    "result": "Item Frame",
+    "result_desc": "Displays a single item on a wall.",
+    "grid": [
+      "stick",
+      "stick",
+      "stick",
+      "stick",
+      "leather",
+      "stick",
+      "stick",
+      "stick",
+      "stick"
+    ]
+  },
+  {
+    "id": 77,
+    "result": "Jukebox",
+    "result_desc": "Plays music discs.",
+    "grid": [
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "diamond",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks",
+      "oak_planks"
+    ]
+  },
+  {
+    "id": 78,
+    "result": "Cauldron",
+    "result_desc": "Holds water, lava, or potions.",
+    "grid": [
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "air",
+      "iron",
+      "iron",
+      "iron",
+      "iron"
+    ]
+  },
+  {
+    "id": 79,
+    "result": "TNT",
+    "result_desc": "Explosive. Handle with care.",
+    "grid": [
+      "gunpowder",
+      "sand",
+      "gunpowder",
+      "sand",
+      "gunpowder",
+      "sand",
+      "gunpowder",
+      "sand",
+      "gunpowder"
     ]
   }
 ];
